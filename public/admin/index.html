@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio Admin Dashboard — Md. Tamal Hossain</title>
+  <title>Portfolio Admin — Md. Tamal Hossain</title>
   
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -17,26 +16,19 @@
       --surface-glass-card: rgba(18, 22, 38, 0.65);
       --surface-glass-hover: rgba(28, 34, 58, 0.8);
       --border-glass: rgba(255, 255, 255, 0.08);
-      --border-glow: rgba(0, 242, 254, 0.35);
       --accent-cyan: #00f2fe;
       --accent-blue: #4facfe;
       --accent-purple: #7928ca;
-      --accent-pink: #ff0080;
       --accent-emerald: #10b981;
-      --accent-amber: #f59e0b;
       --accent-danger: #ef4444;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --text-dim: #64748b;
-      --sidebar-width: 260px;
+      --sidebar-width: 250px;
       --topbar-height: 70px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background-color: var(--bg-space);
@@ -47,7 +39,7 @@
       position: relative;
     }
 
-    /* Fixed Space Animation Canvas */
+    /* Fixed Space Animation Background */
     #spaceCanvas {
       position: fixed;
       top: 0;
@@ -58,7 +50,6 @@
       pointer-events: none;
     }
 
-    /* Cosmic Glow Nebulae */
     .ambient-glow {
       position: fixed;
       border-radius: 50%;
@@ -69,28 +60,14 @@
       animation: pulseGlow 14s ease-in-out infinite alternate;
     }
 
-    .glow-1 {
-      top: -10%;
-      left: 10%;
-      width: 550px;
-      height: 550px;
-      background: radial-gradient(circle, rgba(121, 40, 202, 0.45) 0%, transparent 70%);
-    }
-
-    .glow-2 {
-      bottom: -15%;
-      right: 5%;
-      width: 650px;
-      height: 650px;
-      background: radial-gradient(circle, rgba(0, 242, 254, 0.3) 0%, transparent 70%);
-    }
+    .glow-1 { top: -10%; left: 10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(121, 40, 202, 0.45) 0%, transparent 70%); }
+    .glow-2 { bottom: -15%; right: 5%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0, 242, 254, 0.3) 0%, transparent 70%); }
 
     @keyframes pulseGlow {
-      0% { transform: scale(1) translateY(0); opacity: 0.22; }
-      100% { transform: scale(1.15) translateY(35px); opacity: 0.42; }
+      0% { transform: scale(1) translateY(0); opacity: 0.2; }
+      100% { transform: scale(1.15) translateY(30px); opacity: 0.4; }
     }
 
-    /* Dashboard Shell */
     .admin-wrapper {
       position: relative;
       z-index: 1;
@@ -98,7 +75,7 @@
       min-height: 100vh;
     }
 
-    /* Sidebar Navigation */
+    /* Sidebar */
     .sidebar {
       width: var(--sidebar-width);
       background: var(--surface-glass);
@@ -108,11 +85,8 @@
       display: flex;
       flex-direction: column;
       position: fixed;
-      top: 0;
-      bottom: 0;
-      left: 0;
+      top: 0; bottom: 0; left: 0;
       z-index: 10;
-      transition: all 0.3s ease;
     }
 
     .brand-box {
@@ -125,55 +99,35 @@
     }
 
     .brand-icon {
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       border-radius: 10px;
       background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 16px rgba(0, 242, 254, 0.4);
       font-weight: 800;
       color: #fff;
-      font-size: 1rem;
-    }
-
-    .brand-info {
-      line-height: 1.2;
     }
 
     .brand-title {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 700;
-      letter-spacing: -0.01em;
-      background: linear-gradient(to right, #ffffff, #cbd5e1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #fff;
     }
 
-    .brand-subtitle {
+    .brand-sub {
       font-size: 0.7rem;
       color: var(--accent-cyan);
       font-family: 'JetBrains Mono', monospace;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .nav-label {
-      padding: 24px 20px 8px;
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text-dim);
     }
 
     .sidebar-menu {
       list-style: none;
-      padding: 0 12px;
+      padding: 16px 12px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
     }
 
     .menu-item a {
@@ -187,7 +141,6 @@
       font-weight: 500;
       border-radius: 10px;
       transition: all 0.2s ease;
-      position: relative;
     }
 
     .menu-item a:hover {
@@ -196,81 +149,10 @@
     }
 
     .menu-item.active a {
-      color: #ffffff;
+      color: #fff;
       background: linear-gradient(90deg, rgba(0, 242, 254, 0.15), rgba(121, 40, 202, 0.15));
       border: 1px solid rgba(0, 242, 254, 0.3);
       box-shadow: 0 4px 18px rgba(0, 242, 254, 0.15);
-    }
-
-    .menu-item.active a::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 25%;
-      height: 50%;
-      width: 3px;
-      background: var(--accent-cyan);
-      border-radius: 0 4px 4px 0;
-      box-shadow: 0 0 10px var(--accent-cyan);
-    }
-
-    .menu-icon {
-      width: 18px;
-      height: 18px;
-      stroke-width: 2;
-      stroke: currentColor;
-      fill: none;
-    }
-
-    .badge-count {
-      margin-left: auto;
-      font-size: 0.7rem;
-      padding: 2px 7px;
-      border-radius: 12px;
-      background: rgba(0, 242, 254, 0.12);
-      color: var(--accent-cyan);
-      border: 1px solid rgba(0, 242, 254, 0.25);
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .sidebar-user {
-      margin-top: auto;
-      padding: 16px;
-      border-top: 1px solid var(--border-glass);
-    }
-
-    .user-card {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border-glass);
-    }
-
-    .user-avatar-small {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
-      color: #06070d;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 0.85rem;
-    }
-
-    .user-meta h4 {
-      font-size: 0.82rem;
-      font-weight: 600;
-    }
-
-    .user-meta a {
-      font-size: 0.7rem;
-      color: var(--accent-cyan);
-      text-decoration: none;
     }
 
     /* Main Content */
@@ -282,7 +164,6 @@
       flex-direction: column;
     }
 
-    /* Header Bar */
     .header-bar {
       height: var(--topbar-height);
       border-bottom: 1px solid var(--border-glass);
@@ -298,47 +179,9 @@
       padding: 0 32px;
     }
 
-    .header-title-wrap {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
+    .header-title { font-size: 1.15rem; font-weight: 700; }
 
-    .header-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .live-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 20px;
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      color: var(--accent-emerald);
-      font-size: 0.72rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 600;
-    }
-
-    .live-indicator {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent-emerald);
-      box-shadow: 0 0 6px var(--accent-emerald);
-      animation: pulseIndicator 1.6s infinite;
-    }
-
-    @keyframes pulseIndicator {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.3; transform: scale(0.8); }
-    }
-
-    .btn-view-portfolio {
+    .btn-view {
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -353,13 +196,11 @@
       transition: all 0.2s ease;
     }
 
-    .btn-view-portfolio:hover {
+    .btn-view:hover {
       background: rgba(255, 255, 255, 0.1);
       border-color: var(--accent-cyan);
-      box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
     }
 
-    /* Dashboard Body */
     .dashboard-body {
       padding: 32px;
       display: flex;
@@ -367,128 +208,78 @@
       gap: 28px;
     }
 
-    /* Stats Quick Grid */
-    .stats-overview {
+    /* Stats */
+    .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 18px;
     }
 
-    .stat-pill-card {
+    .stat-card {
       background: var(--surface-glass-card);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border: 1px solid var(--border-glass);
       border-radius: 16px;
       padding: 20px;
-      position: relative;
-      overflow: hidden;
       transition: all 0.25s ease;
     }
 
-    .stat-pill-card:hover {
+    .stat-card:hover {
       transform: translateY(-3px);
       border-color: rgba(255, 255, 255, 0.16);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 242, 254, 0.1);
-    }
-
-    .stat-pill-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--card-accent, var(--accent-cyan)), transparent);
-    }
-
-    .stat-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
     }
 
     .stat-label {
       font-size: 0.75rem;
       font-weight: 600;
       color: var(--text-muted);
-      letter-spacing: 0.04em;
       text-transform: uppercase;
-    }
-
-    .stat-icon {
-      color: var(--card-accent, var(--accent-cyan));
+      letter-spacing: 0.04em;
     }
 
     .stat-value {
       font-size: 1.8rem;
       font-weight: 800;
-      letter-spacing: -0.02em;
+      margin-top: 6px;
       color: #fff;
     }
 
-    .stat-footer-text {
-      font-size: 0.72rem;
-      color: var(--text-dim);
-      margin-top: 6px;
-    }
-
     /* Grid Layout: Add Form (Left) & Projects Table (Right) */
-    .project-management-grid {
+    .project-grid {
       display: grid;
       grid-template-columns: 1fr 1.6fr;
       gap: 24px;
       align-items: start;
     }
 
-    /* Glass Panels */
     .glass-panel {
       background: var(--surface-glass-card);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border-glass);
       border-radius: 20px;
-      padding: 26px;
+      padding: 24px;
     }
 
-    .panel-header-line {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 22px;
-      padding-bottom: 16px;
+    .panel-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
       border-bottom: 1px solid var(--border-glass);
     }
 
-    .panel-header-line h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .panel-header-line span {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    /* Form Styling */
-    .form-group {
-      margin-bottom: 18px;
-    }
+    .form-group { margin-bottom: 16px; }
 
     .form-group label {
       display: block;
       font-size: 0.78rem;
       font-weight: 600;
       color: var(--text-muted);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
     }
 
     .form-control {
@@ -496,519 +287,260 @@
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border-glass);
       border-radius: 10px;
-      padding: 12px 14px;
+      padding: 10px 14px;
       font-size: 0.88rem;
       color: #fff;
-      font-family: inherit;
       outline: none;
-      transition: all 0.2s ease;
+      font-family: inherit;
     }
 
     .form-control:focus {
-      background: rgba(255, 255, 255, 0.06);
       border-color: var(--accent-cyan);
-      box-shadow: 0 0 16px rgba(0, 242, 254, 0.2);
+      box-shadow: 0 0 14px rgba(0, 242, 254, 0.2);
     }
 
-    .form-control::placeholder {
-      color: var(--text-dim);
-    }
-
-    textarea.form-control {
-      min-height: 100px;
-      resize: vertical;
-    }
+    textarea.form-control { min-height: 90px; resize: vertical; }
 
     .btn-submit {
       width: 100%;
       background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
       color: #06070d;
       border: none;
-      padding: 12px 20px;
+      padding: 12px;
       border-radius: 10px;
       font-size: 0.88rem;
       font-weight: 700;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 18px rgba(0, 242, 254, 0.3);
-    }
-
-    .btn-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(0, 242, 254, 0.45);
-      filter: brightness(1.08);
-    }
-
-    /* Projects Table */
-    .projects-table-wrap {
-      width: 100%;
-      overflow-x: auto;
-    }
-
-    table.project-table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0 10px;
-    }
-
-    .project-table th {
-      text-align: left;
-      padding: 10px 14px;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-dim);
-      font-weight: 700;
-    }
-
-    .project-table tbody tr {
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 12px;
       transition: all 0.2s ease;
     }
 
-    .project-table tbody tr:hover {
-      background: rgba(255, 255, 255, 0.05);
-      transform: scale(1.002);
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+    .btn-submit:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
     }
 
-    .project-table td {
-      padding: 14px;
+    /* Projects Table */
+    table.data-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 8px;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .data-table tbody tr {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 10px;
+    }
+
+    .data-table td {
+      padding: 12px;
       font-size: 0.85rem;
-      color: var(--text-main);
       border-top: 1px solid var(--border-glass);
       border-bottom: 1px solid var(--border-glass);
       vertical-align: middle;
     }
 
-    .project-table td:first-child {
-      border-left: 1px solid var(--border-glass);
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
-    }
-
-    .project-table td:last-child {
-      border-right: 1px solid var(--border-glass);
-      border-top-right-radius: 10px;
-      border-bottom-right-radius: 10px;
-    }
+    .data-table td:first-child { border-left: 1px solid var(--border-glass); border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
+    .data-table td:last-child { border-right: 1px solid var(--border-glass); border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
 
     .project-cell {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
     .project-thumb {
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       border-radius: 8px;
       object-fit: cover;
-      border: 1px solid var(--border-glass);
       background: rgba(255, 255, 255, 0.05);
     }
 
-    .project-name {
-      font-weight: 600;
-      color: #fff;
-      font-size: 0.88rem;
-    }
-
-    .project-desc-short {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      max-width: 220px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .tag-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
     .tag-pill {
+      display: inline-block;
       font-size: 0.7rem;
-      padding: 2px 8px;
-      border-radius: 6px;
+      padding: 2px 7px;
+      border-radius: 5px;
       background: rgba(121, 40, 202, 0.15);
       color: #c084fc;
       border: 1px solid rgba(121, 40, 202, 0.3);
       font-family: 'JetBrains Mono', monospace;
+      margin: 2px;
     }
 
-    .action-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
+    .btn-action {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border-glass);
       color: var(--text-muted);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 6px;
       cursor: pointer;
+      font-size: 0.75rem;
       text-decoration: none;
-      transition: all 0.2s ease;
     }
 
-    .btn-icon:hover {
-      color: var(--text-main);
-      background: var(--surface-glass-hover);
-      border-color: var(--accent-cyan);
-    }
+    .btn-action:hover { color: #fff; border-color: var(--accent-cyan); }
+    .btn-action.del:hover { background: rgba(239, 68, 68, 0.2); border-color: var(--accent-danger); color: #fff; }
 
-    .btn-icon.delete:hover {
-      color: #fff;
-      background: rgba(239, 68, 68, 0.2);
-      border-color: var(--accent-danger);
-    }
-
-    /* Responsive */
-    @media (max-width: 1024px) {
-      .project-management-grid { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
+      .project-grid { grid-template-columns: 1fr; }
       .sidebar { transform: translateX(-100%); }
       .main-content { margin-left: 0; }
-      .header-bar { padding: 0 16px; }
-      .dashboard-body { padding: 20px 16px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Animated Space Background Canvas -->
+  <!-- Space Particles & Stars Canvas -->
   <canvas id="spaceCanvas"></canvas>
-
-  <!-- Ambient Cosmic Nebulae -->
   <div class="ambient-glow glow-1"></div>
   <div class="ambient-glow glow-2"></div>
 
   <div class="admin-wrapper">
-    <!-- Sidebar Navigation -->
+    <!-- Sidebar -->
     <aside class="sidebar">
       <div class="brand-box">
         <div class="brand-icon">TH</div>
-        <div class="brand-info">
+        <div>
           <div class="brand-title">Tamal Hossain</div>
-          <div class="brand-subtitle">Portfolio CMS</div>
+          <div class="brand-sub">Portfolio CMS</div>
         </div>
       </div>
 
-      <div class="nav-label">Portfolio Modules</div>
       <ul class="sidebar-menu">
-        <li class="menu-item active">
-          <a href="/admin/projects">
-            <svg class="menu-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/></svg>
-            Projects Manager
-            <span class="badge-count"><%= typeof projects !== 'undefined' ? projects.length : '18' %></span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="/admin/messages">
-            <svg class="menu-icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            Client Messages
-            <span class="badge-count" style="color: var(--accent-emerald); border-color: rgba(16,185,129,0.3);">New</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="/admin/skills">
-            <svg class="menu-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            Skills & Stack
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="/admin/settings">
-            <svg class="menu-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-            SEO & Settings
-          </a>
-        </li>
+        <li class="menu-item active"><a href="/admin/projects">📁 Projects Manager</a></li>
+        <li class="menu-item"><a href="/admin/messages">✉️ Client Messages</a></li>
+        <li class="menu-item"><a href="/admin/skills">⚡ Skills & Stack</a></li>
       </ul>
-
-      <div class="sidebar-user">
-        <div class="user-card">
-          <div class="user-avatar-small">TH</div>
-          <div class="user-meta">
-            <h4>Md. Tamal Hossain</h4>
-            <a href="https://tamalhossain.netlify.app" target="_blank">Live Site ↗</a>
-          </div>
-        </div>
-      </div>
     </aside>
 
-    <!-- Main Content Area -->
+    <!-- Main Content -->
     <main class="main-content">
-      <!-- Header Bar -->
       <header class="header-bar">
-        <div class="header-title-wrap">
-          <h1 class="header-title">Portfolio Projects & Content Management</h1>
-          <span class="live-status"><span class="live-indicator"></span> MONGODB CONNECTED</span>
-        </div>
-
-        <div class="header-actions">
-          <a href="https://tamalhossain.netlify.app" target="_blank" class="btn-view-portfolio">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            View Live Portfolio
-          </a>
-        </div>
+        <h1 class="header-title">Projects Management</h1>
+        <a href="https://tamalhossain.netlify.app" target="_blank" class="btn-view">View Live Portfolio ↗</a>
       </header>
 
       <div class="dashboard-body">
-        <!-- Quick Overview Stats -->
-        <section class="stats-overview">
-          <div class="stat-pill-card" style="--card-accent: var(--accent-cyan);">
-            <div class="stat-top">
-              <span class="stat-label">Total Projects</span>
-              <div class="stat-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-              </div>
-            </div>
-            <div class="stat-value"><%= typeof projects !== 'undefined' ? projects.length : '18' %></div>
-            <p class="stat-footer-text">Published on live portfolio</p>
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Total Projects</div>
+            <div class="stat-value"><%= typeof projects !== 'undefined' ? projects.length : '12' %></div>
           </div>
-
-          <div class="stat-pill-card" style="--card-accent: var(--accent-emerald);">
-            <div class="stat-top">
-              <span class="stat-label">Delivered Sites</span>
-              <div class="stat-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              </div>
-            </div>
+          <div class="stat-card">
+            <div class="stat-label">Delivered Sites</div>
             <div class="stat-value">35+</div>
-            <p class="stat-footer-text">Client solutions completed</p>
           </div>
-
-          <div class="stat-pill-card" style="--card-accent: var(--accent-purple);">
-            <div class="stat-top">
-              <span class="stat-label">Active Stacks</span>
-              <div class="stat-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              </div>
-            </div>
-            <div class="stat-value">WordPress / MERN</div>
-            <p class="stat-footer-text">WooCommerce, React, Node.js</p>
+          <div class="stat-card">
+            <div class="stat-label">Client Inquiries</div>
+            <div class="stat-value">4 Unread</div>
           </div>
+        </div>
 
-          <div class="stat-pill-card" style="--card-accent: var(--accent-pink);">
-            <div class="stat-top">
-              <span class="stat-label">Client Inquiries</span>
-              <div class="stat-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              </div>
-            </div>
-            <div class="stat-value">5 Unread</div>
-            <p class="stat-footer-text">Inbound leads from contact form</p>
-          </div>
-        </section>
-
-        <!-- Project Management: Add Form (Left) & Projects Table (Right) -->
-        <div class="project-management-grid">
-          <!-- Add / Edit Project Form -->
+        <!-- Add Form & Projects List -->
+        <div class="project-grid">
+          <!-- Add Form -->
           <div class="glass-panel">
-            <div class="panel-header-line">
-              <h3>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-                Add New Project
-              </h3>
-              <span>EJS Form</span>
-            </div>
-
+            <h3 class="panel-title">+ Add New Project</h3>
             <form action="/admin/projects" method="POST">
-              <!-- Project Title -->
               <div class="form-group">
                 <label for="title">Project Title</label>
-                <input type="text" id="title" name="title" class="form-control" placeholder="e.g. ZelaPeptide E-Commerce Platform" required />
+                <input type="text" id="title" name="title" class="form-control" placeholder="Project Name" required />
               </div>
-
-              <!-- Image URL -->
               <div class="form-group">
-                <label for="imageUrl">Project Image URL</label>
-                <input type="url" id="imageUrl" name="imageUrl" class="form-control" placeholder="https://images.unsplash.com/... or /uploads/..." required />
+                <label for="imageUrl">Image URL</label>
+                <input type="url" id="imageUrl" name="imageUrl" class="form-control" placeholder="Image link" required />
               </div>
-
-              <!-- Tags / Tech Stack -->
               <div class="form-group">
-                <label for="tags">Tags / Tech Stack (comma separated)</label>
-                <input type="text" id="tags" name="tags" class="form-control" placeholder="WordPress, WooCommerce, Elementor, Speed" required />
+                <label for="tags">Tags (comma separated)</label>
+                <input type="text" id="tags" name="tags" class="form-control" placeholder="WordPress, Elementor, WooCommerce" required />
               </div>
-
-              <!-- Live Demo / Client Link (Optional) -->
               <div class="form-group">
                 <label for="liveUrl">Live Website URL</label>
                 <input type="url" id="liveUrl" name="liveUrl" class="form-control" placeholder="https://example.com" />
               </div>
-
-              <!-- Description -->
               <div class="form-group">
-                <label for="description">Project Description</label>
-                <textarea id="description" name="description" class="form-control" placeholder="Key challenges solved, conversion optimizations, and architecture details..." required></textarea>
+                <label for="description">Description</label>
+                <textarea id="description" name="description" class="form-control" placeholder="Project details..."></textarea>
               </div>
-
-              <button type="submit" class="btn-submit">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                Publish Project to Portfolio
-              </button>
+              <button type="submit" class="btn-submit">Publish Project</button>
             </form>
           </div>
 
-          <!-- Existing Projects Management Table -->
+          <!-- Existing Projects Table -->
           <div class="glass-panel">
-            <div class="panel-header-line">
-              <h3>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-                Current Portfolio Projects
-              </h3>
-              <span>Real-Time Sync</span>
-            </div>
-
-            <div class="projects-table-wrap">
-              <table class="project-table">
-                <thead>
+            <h3 class="panel-title">Current Projects</h3>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Project</th>
+                  <th>Tags</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if (typeof projects !== 'undefined' && projects.length > 0) { %>
+                  <% projects.forEach(function(project) { %>
+                    <tr>
+                      <td>
+                        <div class="project-cell">
+                          <img src="<%= project.imageUrl %>" class="project-thumb" alt="<%= project.title %>" onerror="this.src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=100'" />
+                          <div>
+                            <strong><%= project.title %></strong>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <% if (Array.isArray(project.tags)) { %>
+                          <% project.tags.forEach(function(t) { %><span class="tag-pill"><%= t %></span><% }); %>
+                        <% } else if (typeof project.tags === 'string') { %>
+                          <% project.tags.split(',').forEach(function(t) { %><span class="tag-pill"><%= t.trim() %></span><% }); %>
+                        <% } %>
+                      </td>
+                      <td>
+                        <a href="/admin/projects/edit/<%= project._id || project.id %>" class="btn-action">Edit</a>
+                        <form action="/admin/projects/delete/<%= project._id || project.id %>" method="POST" style="display:inline;" onsubmit="return confirm('Delete this project?');">
+                          <button type="submit" class="btn-action del">Delete</button>
+                        </form>
+                      </td>
+                    </tr>
+                  <% }); %>
+                <% } else { %>
                   <tr>
-                    <th>Project</th>
-                    <th>Tags / Stack</th>
-                    <th>Actions</th>
+                    <td>
+                      <div class="project-cell">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=100" class="project-thumb" alt="Demo" />
+                        <div><strong>CargoLinx Logistics</strong></div>
+                      </div>
+                    </td>
+                    <td><span class="tag-pill">WordPress</span> <span class="tag-pill">WooCommerce</span></td>
+                    <td>
+                      <button class="btn-action">Edit</button>
+                      <button class="btn-action del">Delete</button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  <% if (typeof projects !== 'undefined' && projects.length > 0) { %>
-                    <% projects.forEach(function(project) { %>
-                      <tr>
-                        <td>
-                          <div class="project-cell">
-                            <img src="<%= project.imageUrl %>" alt="<%= project.title %>" class="project-thumb" onerror="this.src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=100'" />
-                            <div class="project-details">
-                              <div class="project-name"><%= project.title %></div>
-                              <div class="project-desc-short"><%= project.description %></div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="tag-container">
-                            <% if (Array.isArray(project.tags)) { %>
-                              <% project.tags.forEach(function(tag) { %>
-                                <span class="tag-pill"><%= tag %></span>
-                              <% }); %>
-                            <% } else if (typeof project.tags === 'string') { %>
-                              <% project.tags.split(',').forEach(function(tag) { %>
-                                <span class="tag-pill"><%= tag.trim() %></span>
-                              <% }); %>
-                            <% } %>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="action-group">
-                            <% if (project.liveUrl) { %>
-                              <a href="<%= project.liveUrl %>" target="_blank" class="btn-icon" title="Visit Live Site">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                              </a>
-                            <% } %>
-                            <a href="/admin/projects/edit/<%= project._id || project.id %>" class="btn-icon" title="Edit Project">
-                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                            </a>
-                            <form action="/admin/projects/delete/<%= project._id || project.id %>" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this project?');">
-                              <button type="submit" class="btn-icon delete" title="Delete Project">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                              </button>
-                            </form>
-                          </div>
-                        </td>
-                      </tr>
-                    <% }); %>
-                  <% } else { %>
-                    <!-- Static Demo Rows (EJS Data না থাকলে দেখাবে) -->
-                    <tr>
-                      <td>
-                        <div class="project-cell">
-                          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=100" class="project-thumb" alt="CargoLinx Logistics" />
-                          <div class="project-details">
-                            <div class="project-name">CargoLinx Logistics Portal</div>
-                            <div class="project-desc-short">High-performance logistics & transport website with dynamic route booking.</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="tag-container">
-                          <span class="tag-pill" style="color: var(--accent-cyan); border-color: rgba(0,242,254,0.3);">WordPress</span>
-                          <span class="tag-pill">Elementor Pro</span>
-                          <span class="tag-pill" style="color: var(--accent-emerald); border-color: rgba(16,185,129,0.3);">Speed: 96</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="action-group">
-                          <a href="https://www.cargolinx.de" target="_blank" class="btn-icon">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                          </a>
-                          <a href="#" class="btn-icon">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                          </a>
-                          <button class="btn-icon delete">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="project-cell">
-                          <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=100" class="project-thumb" alt="ZelaPeptide" />
-                          <div class="project-details">
-                            <div class="project-name">ZelaPeptide WooCommerce Store</div>
-                            <div class="project-desc-short">Custom weight-based shipping, mobile UX overhaul, and secure checkout.</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="tag-container">
-                          <span class="tag-pill" style="color: var(--accent-cyan); border-color: rgba(0,242,254,0.3);">WooCommerce</span>
-                          <span class="tag-pill">Payment Gateway</span>
-                          <span class="tag-pill">CSS3</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="action-group">
-                          <a href="#" class="btn-icon">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                          </a>
-                          <a href="#" class="btn-icon">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                          </a>
-                          <button class="btn-icon delete">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  <% } %>
-                </tbody>
-              </table>
-            </div>
+                <% } %>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </main>
   </div>
 
-  <!-- Space Particle, Starfield & Sparkle Canvas Engine -->
+  <!-- Space Background Engine (Stars, Sparkles, Cosmic Dust & Shooting Stars) -->
   <script>
     const canvas = document.getElementById('spaceCanvas');
     const ctx = canvas.getContext('2d');
-
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
@@ -1018,115 +550,75 @@
       initElements();
     });
 
-    let mouse = {
-      x: width / 2,
-      y: height / 2,
-      radius: 140
-    };
+    let mouse = { x: width / 2, y: height / 2, radius: 140 };
+    window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
 
-    window.addEventListener('mousemove', (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    });
-
-    // 1. Stars (Twinkle & Drift)
     class Star {
       constructor() { this.reset(); }
       reset() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
+        this.x = Math.random() * width; this.y = Math.random() * height;
         this.size = Math.random() * 1.8 + 0.3;
-        this.baseAlpha = Math.random() * 0.7 + 0.2;
-        this.alpha = this.baseAlpha;
-        this.twinkleSpeed = Math.random() * 0.02 + 0.005;
-        this.twinklePhase = Math.random() * Math.PI * 2;
-        this.speedX = (Math.random() - 0.5) * 0.08;
-        this.speedY = (Math.random() - 0.5) * 0.08;
+        this.baseAlpha = Math.random() * 0.7 + 0.2; this.alpha = this.baseAlpha;
+        this.twinkleSpeed = Math.random() * 0.02 + 0.005; this.twinklePhase = Math.random() * Math.PI * 2;
+        this.speedX = (Math.random() - 0.5) * 0.08; this.speedY = (Math.random() - 0.5) * 0.08;
         const colors = ['#ffffff', '#e0f7fa', '#ede7f6', '#80deea'];
         this.color = colors[Math.floor(Math.random() * colors.length)];
       }
       update() {
         this.twinklePhase += this.twinkleSpeed;
         this.alpha = this.baseAlpha + Math.sin(this.twinklePhase) * 0.3;
-        this.x += this.speedX;
-        this.y += this.speedY;
+        this.x += this.speedX; this.y += this.speedY;
         if (this.x < 0) this.x = width; if (this.x > width) this.x = 0;
         if (this.y < 0) this.y = height; if (this.y > height) this.y = 0;
       }
       draw() {
-        ctx.save();
-        ctx.globalAlpha = Math.max(0.1, Math.min(1, this.alpha));
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
+        ctx.save(); ctx.globalAlpha = Math.max(0.1, Math.min(1, this.alpha));
+        ctx.fillStyle = this.color; ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore();
       }
     }
 
-    // 2. 4-Pointed Sparkle Stars (Diamond Cross Twinkle)
     class Sparkle {
       constructor() { this.reset(); }
       reset() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.maxSize = Math.random() * 6 + 4;
-        this.currentSize = 0;
-        this.grow = true;
-        this.speed = Math.random() * 0.08 + 0.02;
-        this.opacity = Math.random() * 0.8 + 0.2;
-        this.rot = Math.random() * Math.PI;
-        this.rotSpeed = (Math.random() - 0.5) * 0.02;
+        this.x = Math.random() * width; this.y = Math.random() * height;
+        this.maxSize = Math.random() * 6 + 4; this.currentSize = 0; this.grow = true;
+        this.speed = Math.random() * 0.08 + 0.02; this.opacity = Math.random() * 0.8 + 0.2;
+        this.rot = Math.random() * Math.PI; this.rotSpeed = (Math.random() - 0.5) * 0.02;
         const sparkles = ['#00f2fe', '#ffffff', '#c084fc', '#67e8f9'];
         this.color = sparkles[Math.floor(Math.random() * sparkles.length)];
       }
       update() {
-        if (this.grow) {
-          this.currentSize += this.speed;
-          if (this.currentSize >= this.maxSize) this.grow = false;
-        } else {
-          this.currentSize -= this.speed * 0.8;
-          if (this.currentSize <= 0) this.reset();
-        }
+        if (this.grow) { this.currentSize += this.speed; if (this.currentSize >= this.maxSize) this.grow = false; }
+        else { this.currentSize -= this.speed * 0.8; if (this.currentSize <= 0) this.reset(); }
         this.rot += this.rotSpeed;
       }
       draw() {
         if (this.currentSize <= 0) return;
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.rot);
+        ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.rot);
         ctx.globalAlpha = this.opacity * (this.currentSize / this.maxSize);
-        ctx.fillStyle = this.color;
-        ctx.shadowColor = this.color;
-        ctx.shadowBlur = 10;
+        ctx.fillStyle = this.color; ctx.shadowColor = this.color; ctx.shadowBlur = 10;
         const s = this.currentSize;
         ctx.beginPath();
         ctx.moveTo(0, -s); ctx.quadraticCurveTo(0, 0, s, 0);
         ctx.quadraticCurveTo(0, 0, 0, s); ctx.quadraticCurveTo(0, 0, -s, 0);
-        ctx.quadraticCurveTo(0, 0, 0, -s);
-        ctx.fill();
+        ctx.quadraticCurveTo(0, 0, 0, -s); ctx.fill();
         ctx.beginPath(); ctx.arc(0, 0, s * 0.2, 0, Math.PI * 2); ctx.fillStyle = '#ffffff'; ctx.fill();
         ctx.restore();
       }
     }
 
-    // 3. Floating Cosmic Dust Particles
     class CosmicParticle {
       constructor() { this.reset(); }
       reset() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 0.4;
-        this.vy = (Math.random() - 0.5) * 0.4;
-        this.radius = Math.random() * 2 + 1;
-        this.alpha = Math.random() * 0.5 + 0.2;
+        this.x = Math.random() * width; this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.4; this.vy = (Math.random() - 0.5) * 0.4;
+        this.radius = Math.random() * 2 + 1; this.alpha = Math.random() * 0.5 + 0.2;
         this.color = Math.random() > 0.5 ? '#00f2fe' : '#a855f7';
       }
       update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        const dx = mouse.x - this.x;
-        const dy = mouse.y - this.y;
+        this.x += this.vx; this.y += this.vy;
+        const dx = mouse.x - this.x; const dy = mouse.y - this.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < mouse.radius) {
           const force = (mouse.radius - dist) / mouse.radius;
@@ -1138,65 +630,39 @@
         if (this.y < 0) this.y = height; if (this.y > height) this.y = 0;
       }
       draw() {
-        ctx.save();
-        ctx.globalAlpha = this.alpha;
-        ctx.fillStyle = this.color;
-        ctx.shadowColor = this.color;
-        ctx.shadowBlur = 8;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
+        ctx.save(); ctx.globalAlpha = this.alpha; ctx.fillStyle = this.color;
+        ctx.shadowColor = this.color; ctx.shadowBlur = 8;
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fill(); ctx.restore();
       }
     }
 
-    // 4. Shooting Star
     class ShootingStar {
       constructor() { this.reset(); }
       reset() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * (height * 0.4);
-        this.length = Math.random() * 90 + 50;
-        this.speed = Math.random() * 7 + 9;
-        this.angle = (Math.PI / 4) + (Math.random() - 0.5) * 0.3;
-        this.opacity = 1;
-        this.active = false;
-        this.delay = Math.random() * 300 + 120;
+        this.x = Math.random() * width; this.y = Math.random() * (height * 0.4);
+        this.length = Math.random() * 90 + 50; this.speed = Math.random() * 7 + 9;
+        this.angle = (Math.PI / 4) + (Math.random() - 0.5) * 0.3; this.opacity = 1;
+        this.active = false; this.delay = Math.random() * 300 + 120;
       }
       update() {
-        if (!this.active) {
-          this.delay--;
-          if (this.delay <= 0) this.active = true;
-          return;
-        }
-        this.x += Math.cos(this.angle) * this.speed;
-        this.y += Math.sin(this.angle) * this.speed;
+        if (!this.active) { this.delay--; if (this.delay <= 0) this.active = true; return; }
+        this.x += Math.cos(this.angle) * this.speed; this.y += Math.sin(this.angle) * this.speed;
         this.opacity -= 0.015;
         if (this.opacity <= 0 || this.x > width + 100 || this.y > height + 100) this.reset();
       }
       draw() {
         if (!this.active || this.opacity <= 0) return;
-        ctx.save();
-        ctx.globalAlpha = this.opacity;
+        ctx.save(); ctx.globalAlpha = this.opacity;
         const tailX = this.x - Math.cos(this.angle) * this.length;
         const tailY = this.y - Math.sin(this.angle) * this.length;
         const grad = ctx.createLinearGradient(tailX, tailY, this.x, this.y);
-        grad.addColorStop(0, 'rgba(0, 242, 254, 0)');
-        grad.addColorStop(1, '#ffffff');
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = 1.5;
-        ctx.shadowColor = '#00f2fe';
-        ctx.shadowBlur = 12;
-        ctx.beginPath();
-        ctx.moveTo(tailX, tailY);
-        ctx.lineTo(this.x, this.y);
-        ctx.stroke();
-        ctx.restore();
+        grad.addColorStop(0, 'rgba(0, 242, 254, 0)'); grad.addColorStop(1, '#ffffff');
+        ctx.strokeStyle = grad; ctx.lineWidth = 1.5; ctx.shadowColor = '#00f2fe'; ctx.shadowBlur = 12;
+        ctx.beginPath(); ctx.moveTo(tailX, tailY); ctx.lineTo(this.x, this.y); ctx.stroke(); ctx.restore();
       }
     }
 
     let stars = [], sparkles = [], particles = [], shootingStar = new ShootingStar();
-
     function initElements() {
       stars = []; sparkles = []; particles = [];
       const count = Math.floor((width * height) / 8000);
@@ -1204,7 +670,6 @@
       for (let i = 0; i < 28; i++) sparkles.push(new Sparkle());
       for (let i = 0; i < 45; i++) particles.push(new CosmicParticle());
     }
-
     initElements();
 
     function animate() {
@@ -1212,11 +677,9 @@
       for (let s of stars) { s.update(); s.draw(); }
       for (let p of particles) { p.update(); p.draw(); }
       for (let sp of sparkles) { sp.update(); sp.draw(); }
-      shootingStar.update();
-      shootingStar.draw();
+      shootingStar.update(); shootingStar.draw();
       requestAnimationFrame(animate);
     }
-
     animate();
   </script>
 </body>
