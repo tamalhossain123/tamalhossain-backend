@@ -5,6 +5,10 @@ require('dotenv').config();
 
 const connectDB = require('./config/db');
 
+const profileRoute = require('./routes/profiles'); // ফাইলের পাথ অনুযায়ী
+app.use('/api/profile', profileRoute);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 const app = express();
 
 // Database Connection
