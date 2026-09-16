@@ -1,8 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const multer = require('multer');
 
-// ১. Mongoose প্রোফাইল স্কিমা
+// ১. Vercel-এর জন্য মেমোরি স্টোরেজ (লোকাল ড্রাইভে কোনো ফাইল লিখবে না)
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 10 * 1024 * 1024 } // 10MB Limit
+});
+
+// ২. Mongoose প্রোফাইল স্কিমা
 const ProfileSchema = new mongoose.Schema({
     // Branding
     siteLogo: { type: String, default: '' },
@@ -21,38 +28,30 @@ const ProfileSchema = new mongoose.Schema({
     btnSayHelloLink: { type: String, default: '#contact' },
     btnPortfolioLink: { type: String, default: '#portfolio' },
 
-    // About & Images
+    // About & Bio
     aboutBio: { type: String, default: '' },
     profileImage: { type: String, default: '' },
     resumeFile: { type: String, default: '' },
 
-    // Counters / Funfacts
+    // Dynamic Arrays
     funfacts: [{
         number: { type: String },
         label: { type: String },
         icon: { type: String }
     }],
-
-    // Services
     services: [{
         title: { type: String },
         icon: { type: String },
         desc: { type: String }
     }],
-
-    // Technologies
     technologies: [{
         name: { type: String },
         logo: { type: String }
     }],
-
-    // Skills
     skills: [{
         name: { type: String },
         percentage: { type: Number }
     }],
-
-    // Education & Experience
     education: [{
         degree: { type: String },
         institute: { type: String },
@@ -65,7 +64,7 @@ const ProfileSchema = new mongoose.Schema({
         description: { type: String }
     }],
 
-    // Contact & Socials
+    // Contact Info & Socials
     email: { type: String, default: 'tamalhossain908@gmail.com' },
     phone: { type: String, default: '+880 1730048626' },
     address: { type: String, default: 'Middle Badda, Dhaka-1212, Bangladesh' },
@@ -76,10 +75,9 @@ const ProfileSchema = new mongoose.Schema({
     }]
 }, { timestamps: true });
 
-// মডেল রেজিস্টার করা
 const Profile = mongoose.models.Profile || mongoose.model('Profile', ProfileSchema);
 
-// অ্যারে বা অবজেক্ট নিরাপদভাবে প্রসেস করার হেল্পার
+// JSON পার্সিং হেল্পার
 const parseData = (val, fallback = []) => {
     if (!val) return fallback;
     if (typeof val === 'object') return val;
@@ -94,7 +92,7 @@ const parseData = (val, fallback = []) => {
 // রাউটস (/api/profile)
 // ==========================================
 
-// GET: প্রোফাইল ডেটা ফেচ
+// GET: প্রোফাইল ডেটা লোড
 router.get('/', async (req, res) => {
     try {
         let profile = await Profile.findOne();
@@ -103,27 +101,28 @@ router.get('/', async (req, res) => {
         }
         res.status(200).json(profile);
     } catch (err) {
+        console.error('Fetch profile error:', err);
         res.status(500).json({ error: 'Failed to fetch profile', details: err.message });
     }
 });
 
-// POST: প্রোফাইল ডেটা সেভ বা আপডেট
-router.post('/', async (req, res) => {
+// POST: ড্যাশবোর্ডের FormData সেভ করা (upload.any() দিয়ে)
+router.post('/', upload.any(), async (req, res) => {
     try {
         let profile = await Profile.findOne();
         if (!profile) {
             profile = new Profile();
         }
 
-        const data = req.body;
+        const data = req.body || {};
 
-        // Branding
+        // ১. ব্র্যান্ডিং
         if (data.siteLogo !== undefined) profile.siteLogo = data.siteLogo;
         if (data.siteFavicon !== undefined) profile.siteFavicon = data.siteFavicon;
         if (data.dashboardAvatar !== undefined) profile.dashboardAvatar = data.dashboardAvatar;
         if (data.projectCategories) profile.projectCategories = parseData(data.projectCategories, profile.projectCategories);
 
-        // Hero
+        // ২. হিরো সেকশন
         if (data.badgeText !== undefined) profile.badgeText = data.badgeText;
         if (data.name !== undefined) profile.name = data.name;
         if (data.typingTitles !== undefined) profile.typingTitles = data.typingTitles;
@@ -131,12 +130,28 @@ router.post('/', async (req, res) => {
         if (data.btnSayHelloLink !== undefined) profile.btnSayHelloLink = data.btnSayHelloLink;
         if (data.btnPortfolioLink !== undefined) profile.btnPortfolioLink = data.btnPortfolioLink;
 
-        // About & Images
+        // ৩. অ্যাবাউট ও বায়ো
         if (data.aboutBio !== undefined) profile.aboutBio = data.aboutBio;
-        if (data.profileImage !== undefined) profile.profileImage = data.profileImage;
-        if (data.resumeFile !== undefined) profile.resumeFile = data.resumeFile;
 
-        // Dynamic Lists
+        // ৪. ফাইল আপলোড হ্যান্ডলিং (Base64 কনভার্সন - লোকাল ড্রাইভ লাগবে না)
+        if (req.files && req.files.length > 0) {
+            req.files.forEach(file => {
+                const base64 = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
+                if (file.fieldname === 'profileImage') {
+                    profile.profileImage = base64;
+                } else if (file.fieldname === 'resumeFile') {
+                    profile.resumeFile = base64;
+                }
+            });
+        }
+        if (data.profileImage && typeof data.profileImage === 'string' && !profile.profileImage) {
+            profile.profileImage = data.profileImage;
+        }
+        if (data.resumeFile && typeof data.resumeFile === 'string' && !profile.resumeFile) {
+            profile.resumeFile = data.resumeFile;
+        }
+
+        // ৫. ডাইনামিক অ্যারে
         if (data.funfacts) profile.funfacts = parseData(data.funfacts, profile.funfacts);
         if (data.services) profile.services = parseData(data.services, profile.services);
         if (data.technologies) profile.technologies = parseData(data.technologies, profile.technologies);
@@ -144,7 +159,7 @@ router.post('/', async (req, res) => {
         if (data.education) profile.education = parseData(data.education, profile.education);
         if (data.experience) profile.experience = parseData(data.experience, profile.experience);
 
-        // Contact
+        // ৬. কনট্যাক্ট ও সোশ্যালস
         if (data.email !== undefined) profile.email = data.email;
         if (data.phone !== undefined) profile.phone = data.phone;
         if (data.address !== undefined) profile.address = data.address;
@@ -156,6 +171,7 @@ router.post('/', async (req, res) => {
             profile: savedProfile
         });
     } catch (err) {
+        console.error('Save profile error:', err);
         res.status(500).json({ error: 'Failed to save profile', details: err.message });
     }
 });
