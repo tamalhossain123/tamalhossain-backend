@@ -2,18 +2,16 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 
-// মডেল ও মিডলওয়্যার নিরাপদে লোড করা
 let Profile;
 try { Profile = require('../models/Profile'); } catch (e) { Profile = require('../models/profile'); }
 
 let auth;
 try { auth = require('../middleware/auth'); } catch (e) { auth = (req, res, next) => next(); }
 
-// Vercel Serverless-এর জন্য MemoryStorage (ফাইল ডিস্কে সেভ না হয়ে মেমোরিতে প্রসেস হবে)
 const storage = multer.memoryStorage();
 const upload = multer({
     storage: storage,
-    limits: { fileSize: 5 * 1024 * 1024 } // সর্বোচ্চ ৫ এমবি
+    limits: { fileSize: 5 * 1024 * 1024 }
 });
 
 // @route   GET /api/profile
@@ -31,7 +29,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-// প্রোফাইল সেভ করার কমন ফাংশন (POST ও PUT উভয়ের জন্য)
 const saveProfileHandler = async (req, res) => {
     try {
         const { name, email, phone, address, typingTitles, aboutBio, skills, education, experience } = req.body;
@@ -44,7 +41,6 @@ const saveProfileHandler = async (req, res) => {
         if (aboutBio !== undefined) profileFields.aboutBio = aboutBio;
         if (typingTitles !== undefined) profileFields.typingTitles = typingTitles;
 
-        // অ্যারে ফিল্ডগুলো থাকলে সেভ করা
         if (skills) {
             try { profileFields.skills = typeof skills === 'string' ? JSON.parse(skills) : skills; } catch (e) { profileFields.skills = skills; }
         }
@@ -55,12 +51,10 @@ const saveProfileHandler = async (req, res) => {
             try { profileFields.experience = typeof experience === 'string' ? JSON.parse(experience) : experience; } catch (e) { profileFields.experience = experience; }
         }
 
-        // ছবি আপলোড হলে Base64 স্ট্রিং আকারে সরাসরি ডাটাবেসে সেভ হবে (Vercel-এ কোনো সমস্যা হবে না)
         if (req.file) {
             profileFields.profileImage = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
         }
 
-        // ডাটাবেসে প্রোফাইল আপডেট বা নতুন তৈরি (upsert: true)
         let profile = await Profile.findOneAndUpdate(
             {},
             { $set: profileFields },
@@ -74,7 +68,6 @@ const saveProfileHandler = async (req, res) => {
     }
 };
 
-// POST এবং PUT দুটো রুটেই সেভ করার সুবিধা
 router.post('/', upload.single('profileImage'), saveProfileHandler);
 router.put('/', upload.single('profileImage'), saveProfileHandler);
 

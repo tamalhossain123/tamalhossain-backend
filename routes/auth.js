@@ -3,12 +3,10 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-// টোকেন জেনারেট করার হেল্পার ফাংশন
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
 };
 
-// ১. প্রথমবার অ্যাডমিন অ্যাকাউন্ট তৈরি (Register/Setup)
 router.post('/register', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -29,7 +27,6 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// ২. অ্যাডমিন লগইন (Login)
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;

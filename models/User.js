@@ -6,7 +6,6 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true }
 }, { timestamps: true });
 
-// পাসওয়ার্ড সেভ করার আগে এনক্রিপ্ট/হ্যাশ করা
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
   const salt = await bcrypt.genSalt(10);
@@ -14,7 +13,6 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-// লগইনের সময় পাসওয়ার্ড যাচাই করা
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };

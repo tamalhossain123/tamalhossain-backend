@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const Project = require('../models/Project'); // অথবা আপনার মডেলের সঠিক পাথ
+const Project = require('../models/Project');
 
 // @route   GET /api/projects
 // @desc    Get all portfolio projects
 router.get('/', async (req, res) => {
     try {
-        // ডাটাবেস থেকে সব প্রজেক্ট নিয়ে আসা
         const projects = await Project.find().sort({ createdAt: -1 });
         res.json(projects);
     } catch (err) {

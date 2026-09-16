@@ -589,18 +589,18 @@
 
                 <div class="grid-2">
                     <div class="form-group">
-                        <label>Click Action Mode (ক্লিক করলে কী হবে?)</label>
+                        <label>Click Action Mode</label>
                         <select id="newProjActionType" class="form-control" onchange="toggleActionTypeFields()">
-                            <option value="url">Open Live URL (নতুন ট্যাবে সাইট বা ড্রাইভ লিংক ওপেন হবে)</option>
-                            <option value="lightbox">Open in Lightbox (পপআপে ফুল-স্ক্রিন প্রিভিউ হবে)</option>
+                            <option value="url">Open Live URL</option>
+                            <option value="lightbox">Open in Lightbox</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label>Screenshot Frame Style (স্ক্রিনশট ডিসপ্লে)</label>
+                        <label>Screenshot Frame Style</label>
                         <select id="newProjScrollMode" class="form-control">
-                            <option value="scroll">Long Screenshot (মাউস নিলে ওপর থেকে নিচে স্ক্রোল হবে)</option>
-                            <option value="fit">Fit to Frame (সাধারণ ছবি - কোনো স্ক্রোল হবে না)</option>
+                            <option value="scroll">Long Screenshot</option>
+                            <option value="fit">Fit to Frame</option>
                         </select>
                     </div>
                 </div>
@@ -608,7 +608,7 @@
                 <!-- URL Field (Toggled by action type) -->
                 <div id="liveUrlGroup" class="form-group">
                     <label>Live URL (Website link, Google Drive link, or Behance link)</label>
-                    <input type="text" id="newProjLiveUrl" class="form-control" placeholder="https://drive.google.com/... বা https://your-site.com">
+                    <input type="text" id="newProjLiveUrl" class="form-control" placeholder="https://drive.google.com/... or https://your-site.com">
                 </div>
 
                 <div class="form-group">
@@ -798,7 +798,7 @@
             div.innerHTML = `
                 <button type="button" class="item-remove-btn" onclick="this.parentElement.remove()"><i class="fa-solid fa-trash"></i></button>
                 <div class="grid-3">
-                    <div class="form-group"><label>Count / Number</label><input type="text" class="form-control fact-number" value="${data.number || ''}" placeholder="5+ বা 150+"></div>
+                    <div class="form-group"><label>Count / Number</label><input type="text" class="form-control fact-number" value="${data.number || ''}" placeholder="5+ or 150+"></div>
                     <div class="form-group"><label>Label / Title</label><input type="text" class="form-control fact-label" value="${data.label || ''}" placeholder="Years of Experience"></div>
                     <div class="form-group"><label>Icon Class (FontAwesome)</label><input type="text" class="form-control fact-icon" value="${data.icon || 'fa-solid fa-award'}" placeholder="fa-solid fa-award"></div>
                 </div>

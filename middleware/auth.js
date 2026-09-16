@@ -5,7 +5,6 @@ const protect = (req, res, next) => {
 
   if (authHeader && authHeader.startsWith('Bearer ')) {
     try {
-      // 'Bearer ' এর ঠিক পর থেকে পুরো টোকেন স্ট্রিংটি নেওয়া
       const token = authHeader.slice(7).trim();
 
       if (!token || token === 'null' || token === 'undefined') {
