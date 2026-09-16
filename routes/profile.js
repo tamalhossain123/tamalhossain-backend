@@ -2,30 +2,13 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
 
-// ১. আপলোড ডিরেক্টরি নিশ্চিত করা
-const uploadDir = path.join(__dirname, '../uploads');
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-// ২. মাল্টার স্টোরেজ কনফিগারেশন (Profile Image & Resume PDF)
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, uploadDir);
-    },
-    filename: (req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        const ext = path.extname(file.originalname);
-        cb(null, file.fieldname + '-' + uniqueSuffix + ext);
-    }
-});
+// ১. Vercel Serverless-এর জন্য Memory Storage (নো ডিস্ক রাইট)
+const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
     if (file.fieldname === 'resumeFile') {
-        if (file.mimetype === 'application/pdf' || path.extname(file.originalname).toLowerCase() === '.pdf') {
+        if (file.mimetype === 'application/pdf' || file.originalname.toLowerCase().endsWith('.pdf')) {
             cb(null, true);
         } else {
             cb(new Error('Only PDF files are allowed for resume!'), false);
@@ -41,11 +24,11 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({
     storage: storage,
-    limits: { fileSize: 15 * 1024 * 1024 }, // 15MB
+    limits: { fileSize: 5 * 1024 * 1024 }, // Vercel payload limit compliant (5MB)
     fileFilter: fileFilter
 });
 
-// ৩. Mongoose প্রোফাইল স্কিমা (ড্যাশবোর্ডের সব কয়টি ফিল্ডের সাথে মিল রেখে)
+// ২. Mongoose প্রোফাইল স্কিমা
 const ProfileSchema = new mongoose.Schema({
     // Branding & Logos
     siteLogo: { type: String, default: '' },
@@ -121,7 +104,7 @@ const ProfileSchema = new mongoose.Schema({
 
 const Profile = mongoose.models.Profile || mongoose.model('Profile', ProfileSchema);
 
-// ৪. হেল্পার ফাংশন: FormData থেকে আসা স্ট্রিংগিফাইড JSON নিরাপদে পার্স করা
+// হেল্পার: সেইফ JSON পার্সিং
 const safeJsonParse = (data, fallback = []) => {
     if (!data) return fallback;
     if (typeof data === 'object') return data;
@@ -132,11 +115,7 @@ const safeJsonParse = (data, fallback = []) => {
     }
 };
 
-// ==========================================
-// রাউটস (/api/profile)
-// ==========================================
-
-// GET /api/profile -> ড্যাশবোর্ড লোড করার সময় ডেটা ফেচ
+// GET /api/profile
 router.get('/', async (req, res) => {
     try {
         let profile = await Profile.findOne();
@@ -146,11 +125,11 @@ router.get('/', async (req, res) => {
         res.status(200).json(profile);
     } catch (err) {
         console.error('Error fetching profile:', err);
-        res.status(500).json({ error: 'Failed to fetch profile data', details: err.message });
+        res.status(500).json({ error: 'Failed to fetch profile', details: err.message });
     }
 });
 
-// POST /api/profile -> ড্যাশবোর্ডের "Save All Changes" থেকে আসা FormData সেভ করা
+// POST /api/profile
 router.post('/', upload.fields([
     { name: 'profileImage', maxCount: 1 },
     { name: 'resumeFile', maxCount: 1 }
@@ -180,17 +159,19 @@ router.post('/', upload.fields([
         // About & Bio
         if (body.aboutBio !== undefined) profile.aboutBio = body.aboutBio;
 
-        // File Uploads (যদি নতুন ফাইল আপলোড করা হয়)
+        // File Uploads (Vercel-Safe Base64 Conversion)
         if (req.files) {
             if (req.files.profileImage && req.files.profileImage[0]) {
-                profile.profileImage = `/uploads/${req.files.profileImage[0].filename}`;
+                const img = req.files.profileImage[0];
+                profile.profileImage = `data:${img.mimetype};base64,${img.buffer.toString('base64')}`;
             }
             if (req.files.resumeFile && req.files.resumeFile[0]) {
-                profile.resumeFile = `/uploads/${req.files.resumeFile[0].filename}`;
+                const doc = req.files.resumeFile[0];
+                profile.resumeFile = `data:${doc.mimetype};base64,${doc.buffer.toString('base64')}`;
             }
         }
 
-        // Dynamic Lists / Arrays (JSON.parse দিয়ে সেভ)
+        // Dynamic Lists / Arrays
         if (body.funfacts) profile.funfacts = safeJsonParse(body.funfacts, profile.funfacts);
         if (body.services) profile.services = safeJsonParse(body.services, profile.services);
         if (body.technologies) profile.technologies = safeJsonParse(body.technologies, profile.technologies);
@@ -211,7 +192,7 @@ router.post('/', upload.fields([
         });
     } catch (err) {
         console.error('Error saving profile:', err);
-        res.status(500).json({ error: 'Failed to save profile data', details: err.message });
+        res.status(500).json({ error: 'Failed to save profile', details: err.message });
     }
 });
 
