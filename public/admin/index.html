@@ -24,7 +24,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background-color: var(--bg-dark); color: var(--text-main); display: flex; min-height: 100vh; }
 
-        /* SIDEBAR NAVIGATION */
+        /* SIDEBAR */
         .sidebar {
             width: 280px;
             background: var(--sidebar-bg);
@@ -115,7 +115,7 @@
         .tab-pane.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* CARDS & FORMS */
+        /* CARDS */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -123,18 +123,6 @@
             padding: 24px;
             margin-bottom: 24px;
         }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--card-border);
-        }
-        .card-header-left { display: flex; align-items: center; gap: 10px; }
-        .card-header-left i { color: var(--primary); font-size: 1.1rem; }
-        .card-header-left h3 { font-size: 1.1rem; font-weight: 600; }
 
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
@@ -154,7 +142,19 @@
         .form-control:focus { border-color: var(--primary); }
         textarea.form-control { resize: vertical; min-height: 90px; }
 
-        /* DYNAMIC LIST ITEM BOX */
+        /* UPLOAD & PREVIEW */
+        .upload-card-box {
+            background: var(--input-bg);
+            border: 1px dashed var(--card-border);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .preview-thumb { width: 54px; height: 54px; border-radius: 8px; object-fit: cover; border: 1px solid var(--card-border); background: #000; }
+
+        /* DYNAMIC ROW */
         .item-row {
             background: var(--input-bg);
             border: 1px solid var(--card-border);
@@ -178,6 +178,40 @@
         }
         .item-remove-btn:hover { background: var(--danger); color: #fff; }
 
+        /* ICON PREVIEW BOX */
+        .icon-live-preview {
+            width: 48px;
+            height: 48px;
+            background: rgba(240, 187, 98, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--primary);
+            flex-shrink: 0;
+            transition: 0.2s;
+        }
+
+        .icon-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 6px;
+        }
+        .icon-chip {
+            background: var(--card-border);
+            color: var(--text-muted);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            cursor: pointer;
+            border: none;
+            transition: 0.2s;
+        }
+        .icon-chip:hover { background: var(--primary); color: #000; }
+
         .btn-add {
             background: transparent;
             border: 1px dashed var(--primary);
@@ -195,11 +229,11 @@
         }
         .btn-add:hover { background: rgba(240, 187, 98, 0.1); }
 
-        /* FLOATING ACTION BAR */
+        /* ACTION BAR */
         .action-bar {
             position: sticky;
             bottom: 20px;
-            background: rgba(17, 23, 34, 0.92);
+            background: rgba(17, 23, 34, 0.94);
             backdrop-filter: blur(12px);
             border: 1px solid var(--primary);
             border-radius: 12px;
@@ -228,8 +262,6 @@
         }
         .btn-save:hover { background: var(--primary-hover); }
 
-        .img-preview-box { display: flex; align-items: center; gap: 16px; }
-        .img-preview { width: 64px; height: 64px; border-radius: 8px; object-fit: cover; border: 1px solid var(--card-border); background: #000; }
         .status-msg { font-size: 0.88rem; font-weight: 500; }
     </style>
 </head>
@@ -247,9 +279,9 @@
 
         <ul class="nav-menu">
             <li class="nav-item active" onclick="switchTab('hero', this)"><i class="fa-solid fa-wand-magic-sparkles"></i> <span>Hero Section</span></li>
-            <li class="nav-item" onclick="switchTab('about', this)"><i class="fa-solid fa-user"></i> <span>About Section</span></li>
+            <li class="nav-item" onclick="switchTab('about', this)"><i class="fa-solid fa-user"></i> <span>About & Resume</span></li>
             <li class="nav-item" onclick="switchTab('services', this)"><i class="fa-solid fa-briefcase"></i> <span>Services</span></li>
-            <li class="nav-item" onclick="switchTab('technologies', this)"><i class="fa-solid fa-microchip"></i> <span>Technologies</span></li>
+            <li class="nav-item" onclick="switchTab('technologies', this)"><i class="fa-solid fa-microchip"></i> <span>Technologies Logos</span></li>
             <li class="nav-item" onclick="switchTab('skills', this)"><i class="fa-solid fa-bolt"></i> <span>Skills Manager</span></li>
             <li class="nav-item" onclick="switchTab('resume', this)"><i class="fa-solid fa-graduation-cap"></i> <span>Resume Timeline</span></li>
             <li class="nav-item" onclick="switchTab('contact', this)"><i class="fa-solid fa-share-nodes"></i> <span>Contact & Socials</span></li>
@@ -271,12 +303,12 @@
             <div id="tab-hero" class="tab-pane active">
                 <div class="header-title">
                     <h1>Hero & Intro Section</h1>
-                    <p>Customize the first impression of your portfolio.</p>
+                    <p>Manage the top hero section of your portfolio.</p>
                 </div>
                 <div class="card">
                     <div class="grid-2">
                         <div class="form-group">
-                            <label>Badge Text</label>
+                            <label>Hero Badge Text</label>
                             <input type="text" id="badgeText" class="form-control" placeholder="- I AM MD. TAMAL HOSSAIN">
                         </div>
                         <div class="form-group">
@@ -289,8 +321,8 @@
                         <input type="text" id="typingTitles" class="form-control" placeholder="Front-End Developer, WordPress Specialist, Graphic Designer, UI/UX Designer">
                     </div>
                     <div class="form-group">
-                        <label>Hero Short Tagline / Bio</label>
-                        <textarea id="heroTagline" class="form-control" placeholder="Crafting high-performance, modern web interfaces and intuitive digital experiences with a clean, user-centric design approach."></textarea>
+                        <label>Hero Short Tagline / Description</label>
+                        <textarea id="heroTagline" class="form-control" placeholder="Crafting high-performance, modern web interfaces..."></textarea>
                     </div>
                     <div class="grid-2">
                         <div class="form-group">
@@ -305,36 +337,52 @@
                 </div>
             </div>
 
-            <!-- TAB 2: ABOUT SECTION -->
+            <!-- TAB 2: ABOUT & RESUME UPLOAD -->
             <div id="tab-about" class="tab-pane">
                 <div class="header-title">
-                    <h1>About Section</h1>
-                    <p>Manage your biography, profile photo and resume document.</p>
+                    <h1>About & Resume Upload</h1>
+                    <p>Upload your latest profile photo and resume PDF.</p>
                 </div>
+
                 <div class="card">
                     <div class="form-group">
-                        <label>Profile Picture</label>
-                        <div class="img-preview-box">
-                            <img id="imgPreview" class="img-preview" src="" alt="Profile Image">
+                        <label>Profile Picture (Live Replacement)</label>
+                        <div class="upload-card-box">
+                            <img id="imgPreview" class="preview-thumb" src="" alt="Profile Preview">
                             <input type="file" id="profileImageInput" accept="image/*">
                         </div>
                     </div>
+                </div>
+
+                <div class="card">
                     <div class="form-group">
-                        <label>Resume Download Link</label>
-                        <input type="text" id="resumeLink" class="form-control" placeholder="https://drive.google.com/file/d/...">
+                        <label><i class="fa-solid fa-file-pdf" style="color: var(--danger);"></i> Upload Resume PDF</label>
+                        <div class="upload-card-box">
+                            <i class="fa-solid fa-file-lines fa-2x" style="color: var(--primary);"></i>
+                            <div style="flex: 1;">
+                                <input type="file" id="resumeFileInput" accept=".pdf">
+                                <p id="currentResumeStatus" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">No resume uploaded yet</p>
+                            </div>
+                            <a id="btnDownloadCurrentResume" href="#" target="_blank" style="display: none; color: var(--primary); font-size: 0.85rem; text-decoration: none;">
+                                <i class="fa-solid fa-download"></i> View PDF
+                            </a>
+                        </div>
                     </div>
+                </div>
+
+                <div class="card">
                     <div class="form-group">
                         <label>About Me Bio (Detailed Paragraph)</label>
-                        <textarea id="aboutBio" class="form-control" rows="5" placeholder="Results-driven Front-End & Web Developer with strong communication skills..."></textarea>
+                        <textarea id="aboutBio" class="form-control" rows="5" placeholder="Results-driven Front-End & Web Developer..."></textarea>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 3: SERVICES SECTION -->
+            <!-- TAB 3: SERVICES SECTION (FONTAWESOME INTEGRATED) -->
             <div id="tab-services" class="tab-pane">
                 <div class="header-title">
                     <h1>Services ("What I'm Doing")</h1>
-                    <p>Add, edit or remove the services you offer to clients.</p>
+                    <p>Manage services with live FontAwesome icon preview and CSS integration.</p>
                 </div>
                 <div class="card">
                     <div id="servicesContainer"></div>
@@ -342,15 +390,15 @@
                 </div>
             </div>
 
-            <!-- TAB 4: TECHNOLOGIES SECTION -->
+            <!-- TAB 4: TECHNOLOGIES LOGOS -->
             <div id="tab-technologies" class="tab-pane">
                 <div class="header-title">
-                    <h1>Technologies Section</h1>
-                    <p>Manage the tool logos and technologies displayed in your tech grid.</p>
+                    <h1>Technologies Section (Logo Uploads)</h1>
+                    <p>Upload direct logo images for React, WordPress, JavaScript, etc.</p>
                 </div>
                 <div class="card">
                     <div id="technologiesContainer"></div>
-                    <button type="button" class="btn-add" onclick="addTechRow()"><i class="fa-solid fa-plus"></i> Add Technology Logo/Icon</button>
+                    <button type="button" class="btn-add" onclick="addTechRow()"><i class="fa-solid fa-plus"></i> Add Technology Logo</button>
                 </div>
             </div>
 
@@ -358,7 +406,7 @@
             <div id="tab-skills" class="tab-pane">
                 <div class="header-title">
                     <h1>Skills Manager</h1>
-                    <p>Adjust skill percentage bars and proficiencies.</p>
+                    <p>Adjust skill names and percentage bars.</p>
                 </div>
                 <div class="card">
                     <div id="skillsContainer"></div>
@@ -389,53 +437,26 @@
             <div id="tab-contact" class="tab-pane">
                 <div class="header-title">
                     <h1>Contact & Social Channels</h1>
-                    <p>Update your direct contact info and social media profile links.</p>
+                    <p>Update your direct contact information and social handles.</p>
                 </div>
                 <div class="card">
                     <h3 style="margin-bottom: 16px; color: var(--primary);">Direct Contact Info</h3>
                     <div class="grid-3">
-                        <div class="form-group">
-                            <label>Email Address</label>
-                            <input type="email" id="email" class="form-control" placeholder="tamalhossain908@gmail.com">
-                        </div>
-                        <div class="form-group">
-                            <label>Phone Number</label>
-                            <input type="text" id="phone" class="form-control" placeholder="+880 1730 048626">
-                        </div>
-                        <div class="form-group">
-                            <label>Location / Address</label>
-                            <input type="text" id="address" class="form-control" placeholder="Barishal Sadar, Barishal-8200, Bangladesh">
-                        </div>
+                        <div class="form-group"><label>Email Address</label><input type="email" id="email" class="form-control"></div>
+                        <div class="form-group"><label>Phone Number</label><input type="text" id="phone" class="form-control"></div>
+                        <div class="form-group"><label>Location / Address</label><input type="text" id="address" class="form-control"></div>
                     </div>
                 </div>
 
                 <div class="card">
                     <h3 style="margin-bottom: 16px; color: var(--primary);">Social Media Profiles</h3>
                     <div class="grid-3">
-                        <div class="form-group">
-                            <label><i class="fa-brands fa-github"></i> GitHub</label>
-                            <input type="text" id="socialGithub" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label><i class="fa-brands fa-linkedin"></i> LinkedIn</label>
-                            <input type="text" id="socialLinkedin" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label><i class="fa-brands fa-upwork"></i> Upwork</label>
-                            <input type="text" id="socialUpwork" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label><i class="fa-brands fa-x-twitter"></i> X (Twitter)</label>
-                            <input type="text" id="socialTwitter" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label><i class="fa-brands fa-facebook"></i> Facebook</label>
-                            <input type="text" id="socialFacebook" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label><i class="fa-brands fa-whatsapp"></i> WhatsApp Link</label>
-                            <input type="text" id="socialWhatsapp" class="form-control">
-                        </div>
+                        <div class="form-group"><label><i class="fa-brands fa-github"></i> GitHub</label><input type="text" id="socialGithub" class="form-control"></div>
+                        <div class="form-group"><label><i class="fa-brands fa-linkedin"></i> LinkedIn</label><input type="text" id="socialLinkedin" class="form-control"></div>
+                        <div class="form-group"><label><i class="fa-brands fa-upwork"></i> Upwork</label><input type="text" id="socialUpwork" class="form-control"></div>
+                        <div class="form-group"><label><i class="fa-brands fa-x-twitter"></i> X (Twitter)</label><input type="text" id="socialTwitter" class="form-control"></div>
+                        <div class="form-group"><label><i class="fa-brands fa-facebook"></i> Facebook</label><input type="text" id="socialFacebook" class="form-control"></div>
+                        <div class="form-group"><label><i class="fa-brands fa-whatsapp"></i> WhatsApp Link</label><input type="text" id="socialWhatsapp" class="form-control"></div>
                     </div>
                 </div>
             </div>
@@ -455,7 +476,6 @@
     <script>
         const API_URL = '/api/profile';
 
-        // ১. ট্যাব স্যুইচিং লজিক
         function switchTab(tabId, el) {
             document.querySelectorAll('.tab-pane').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
@@ -466,10 +486,35 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ২. ডাইনামিক রো জেনারেটর (Services, Tech, Skills, Timeline)
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        // FontAwesome Icon Live Update Function
+        window.updateLiveIcon = function(input) {
+            const row = input.closest('.service-item');
+            const iconPreview = row.querySelector('.icon-live-preview i');
+            iconPreview.className = input.value.trim() || 'fa-solid fa-circle-question';
+        };
+
+        window.setQuickIcon = function(btn, iconClass) {
+            const row = btn.closest('.service-item');
+            const input = row.querySelector('.service-icon');
+            input.value = iconClass;
+            updateLiveIcon(input);
+        };
+
+        // Service Row With Real-Time FontAwesome Preview
         function addServiceRow(data = {}) {
             const div = document.createElement('div');
             div.className = 'item-row service-item';
+            const iconClass = data.icon || 'fa-solid fa-globe';
+
             div.innerHTML = `
                 <button type="button" class="item-remove-btn" onclick="this.parentElement.remove()"><i class="fa-solid fa-trash"></i> Remove</button>
                 <div class="grid-2">
@@ -478,11 +523,26 @@
                         <input type="text" class="form-control service-title" value="${data.title || ''}" placeholder="Web Design">
                     </div>
                     <div class="form-group">
-                        <label>Icon (FontAwesome Class or Image URL)</label>
-                        <input type="text" class="form-control service-icon" value="${data.icon || ''}" placeholder="fa-solid fa-globe">
+                        <label>FontAwesome Icon Class</label>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="icon-live-preview" title="Live Icon Preview">
+                                <i class="${iconClass}"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <input type="text" class="form-control service-icon" value="${iconClass}" placeholder="fa-solid fa-globe" oninput="updateLiveIcon(this)">
+                                <div class="icon-chips">
+                                    <button type="button" class="icon-chip" onclick="setQuickIcon(this, 'fa-solid fa-globe')">🌐 Web</button>
+                                    <button type="button" class="icon-chip" onclick="setQuickIcon(this, 'fa-brands fa-wordpress')">⚡ WP</button>
+                                    <button type="button" class="icon-chip" onclick="setQuickIcon(this, 'fa-solid fa-pen-nib')">✒️ Design</button>
+                                    <button type="button" class="icon-chip" onclick="setQuickIcon(this, 'fa-solid fa-code')">💻 Code</button>
+                                    <button type="button" class="icon-chip" onclick="setQuickIcon(this, 'fa-solid fa-mobile-screen')">📱 App</button>
+                                    <button type="button" class="icon-chip" onclick="setQuickIcon(this, 'fa-solid fa-rocket')">🚀 Speed</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-top: 8px;">
                     <label>Description</label>
                     <textarea class="form-control service-desc" placeholder="Service description...">${data.desc || ''}</textarea>
                 </div>
@@ -490,25 +550,40 @@
             document.getElementById('servicesContainer').appendChild(div);
         }
 
+        // Tech Row with Image Upload
         function addTechRow(data = {}) {
             const div = document.createElement('div');
             div.className = 'item-row tech-item';
             div.innerHTML = `
-                <button type="button" class="item-remove-btn" onclick="this.parentElement.remove()"><i class="fa-solid fa-trash"></i> Remove</button>
+                <button type="button" class="item-remove-btn" onclick="this.parentElement.remove()"><i class="fa-solid fa-trash"></i></button>
                 <div class="grid-2">
                     <div class="form-group">
                         <label>Technology Name</label>
-                        <input type="text" class="form-control tech-name" value="${data.name || ''}" placeholder="React / WordPress / Figma">
+                        <input type="text" class="form-control tech-name" value="${data.name || ''}" placeholder="React / WordPress">
                     </div>
                     <div class="form-group">
-                        <label>Logo URL or FontAwesome Icon</label>
-                        <input type="text" class="form-control tech-icon" value="${data.icon || ''}" placeholder="assets/img/tech/react.png বা fa-brands fa-react">
+                        <label>Upload Tech Logo (PNG / SVG / JPG)</label>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img class="preview-thumb tech-logo-preview" src="${data.logo || 'assets/img/tech-placeholder.png'}" alt="Logo">
+                            <input type="file" class="tech-file-input" accept="image/*" onchange="previewTechLogo(this)">
+                            <input type="hidden" class="tech-logo-base64" value="${data.logo || ''}">
+                        </div>
                     </div>
                 </div>
             `;
             document.getElementById('technologiesContainer').appendChild(div);
         }
 
+        window.previewTechLogo = async function(input) {
+            if (input.files && input.files[0]) {
+                const b64 = await fileToBase64(input.files[0]);
+                const row = input.closest('.tech-item');
+                row.querySelector('.tech-logo-preview').src = b64;
+                row.querySelector('.tech-logo-base64').value = b64;
+            }
+        };
+
+        // Skill Row
         function addSkillRow(data = {}) {
             const div = document.createElement('div');
             div.className = 'item-row skill-item';
@@ -517,47 +592,49 @@
                 <div class="grid-2">
                     <div class="form-group">
                         <label>Skill Name</label>
-                        <input type="text" class="form-control skill-name" value="${data.name || ''}" placeholder="JavaScript / WordPress">
+                        <input type="text" class="form-control skill-name" value="${data.name || ''}" placeholder="JavaScript">
                     </div>
                     <div class="form-group">
                         <label>Percentage (%)</label>
-                        <input type="number" min="0" max="100" class="form-control skill-percent" value="${data.percentage || 80}" placeholder="85">
+                        <input type="number" min="0" max="100" class="form-control skill-percent" value="${data.percentage || 85}">
                     </div>
                 </div>
             `;
             document.getElementById('skillsContainer').appendChild(div);
         }
 
+        // Education Row
         function addEduRow(data = {}) {
             const div = document.createElement('div');
             div.className = 'item-row edu-item';
             div.innerHTML = `
                 <button type="button" class="item-remove-btn" onclick="this.parentElement.remove()"><i class="fa-solid fa-trash"></i></button>
                 <div class="grid-3">
-                    <div class="form-group"><label>Degree</label><input type="text" class="form-control edu-degree" value="${data.degree || ''}" placeholder="Diploma in Engineering"></div>
-                    <div class="form-group"><label>Institute</label><input type="text" class="form-control edu-institute" value="${data.institute || ''}" placeholder="Bhola Polytechnic Institute"></div>
-                    <div class="form-group"><label>Year</label><input type="text" class="form-control edu-year" value="${data.year || ''}" placeholder="2019 - 2023"></div>
+                    <div class="form-group"><label>Degree</label><input type="text" class="form-control edu-degree" value="${data.degree || ''}"></div>
+                    <div class="form-group"><label>Institute</label><input type="text" class="form-control edu-institute" value="${data.institute || ''}"></div>
+                    <div class="form-group"><label>Year</label><input type="text" class="form-control edu-year" value="${data.year || ''}"></div>
                 </div>
             `;
             document.getElementById('educationContainer').appendChild(div);
         }
 
+        // Experience Row
         function addExpRow(data = {}) {
             const div = document.createElement('div');
             div.className = 'item-row exp-item';
             div.innerHTML = `
                 <button type="button" class="item-remove-btn" onclick="this.parentElement.remove()"><i class="fa-solid fa-trash"></i></button>
                 <div class="grid-3">
-                    <div class="form-group"><label>Job Role</label><input type="text" class="form-control exp-role" value="${data.role || ''}" placeholder="Executive Web Developer"></div>
-                    <div class="form-group"><label>Company</label><input type="text" class="form-control exp-company" value="${data.company || ''}" placeholder="Softvence Alpha"></div>
-                    <div class="form-group"><label>Duration</label><input type="text" class="form-control exp-duration" value="${data.duration || ''}" placeholder="2026 - Present"></div>
+                    <div class="form-group"><label>Job Role</label><input type="text" class="form-control exp-role" value="${data.role || ''}"></div>
+                    <div class="form-group"><label>Company</label><input type="text" class="form-control exp-company" value="${data.company || ''}"></div>
+                    <div class="form-group"><label>Duration</label><input type="text" class="form-control exp-duration" value="${data.duration || ''}"></div>
                 </div>
-                <div class="form-group"><label>Description</label><textarea class="form-control exp-desc" placeholder="Job responsibilities...">${data.description || ''}</textarea></div>
+                <div class="form-group"><label>Description</label><textarea class="form-control exp-desc">${data.description || ''}</textarea></div>
             `;
             document.getElementById('experienceContainer').appendChild(div);
         }
 
-        // ৩. সার্ভার থেকে ডাটা এনে ফিল্ড পূরণ করা
+        // Load Data from Server
         async function loadProfileData() {
             try {
                 const res = await fetch(API_URL);
@@ -572,10 +649,17 @@
                 if (data.btnSayHelloLink) document.getElementById('btnSayHelloLink').value = data.btnSayHelloLink;
                 if (data.btnPortfolioLink) document.getElementById('btnPortfolioLink').value = data.btnPortfolioLink;
 
-                // About
-                if (data.resumeLink) document.getElementById('resumeLink').value = data.resumeLink;
+                // About & Resume
                 if (data.aboutBio) document.getElementById('aboutBio').value = data.aboutBio;
                 if (data.profileImage) document.getElementById('imgPreview').src = data.profileImage;
+                
+                if (data.resumeFile) {
+                    document.getElementById('currentResumeStatus').innerText = '✓ PDF Resume is uploaded & active';
+                    document.getElementById('currentResumeStatus').style.color = 'var(--success)';
+                    const dlBtn = document.getElementById('btnDownloadCurrentResume');
+                    dlBtn.href = data.resumeFile;
+                    dlBtn.style.display = 'inline-flex';
+                }
 
                 // Contact & Social
                 if (data.email) document.getElementById('email').value = data.email;
@@ -596,8 +680,8 @@
                 if (data.services && data.services.length > 0) {
                     data.services.forEach(s => addServiceRow(s));
                 } else {
-                    addServiceRow({ title: 'Web Design', icon: 'fa-solid fa-globe', desc: 'Designing modern, responsive websites with clean UI.' });
-                    addServiceRow({ title: 'WordPress Development', icon: 'fa-brands fa-wordpress', desc: 'Custom WordPress & WooCommerce theme setup.' });
+                    addServiceRow({ title: 'Web Design', icon: 'fa-solid fa-globe', desc: 'Modern responsive websites.' });
+                    addServiceRow({ title: 'WordPress Development', icon: 'fa-brands fa-wordpress', desc: 'Custom theme & WooCommerce.' });
                     addServiceRow({ title: 'Graphic & UI Design', icon: 'fa-solid fa-pen-nib', desc: 'Visually compelling graphics and brand identity.' });
                 }
 
@@ -606,7 +690,9 @@
                 if (data.technologies && data.technologies.length > 0) {
                     data.technologies.forEach(t => addTechRow(t));
                 } else {
-                    ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap', 'WordPress', 'React'].forEach(tech => addTechRow({ name: tech, icon: 'fa-solid fa-code' }));
+                    addTechRow({ name: 'React', logo: '' });
+                    addTechRow({ name: 'WordPress', logo: '' });
+                    addTechRow({ name: 'JavaScript', logo: '' });
                 }
 
                 // Skills
@@ -618,7 +704,7 @@
                     addSkillRow({ name: 'Web Design', percentage: 90 });
                 }
 
-                // Education & Experience
+                // Timeline
                 document.getElementById('educationContainer').innerHTML = '';
                 if (data.education && data.education.length > 0) {
                     data.education.forEach(ed => addEduRow(ed));
@@ -636,7 +722,7 @@
 
         document.addEventListener('DOMContentLoaded', loadProfileData);
 
-        // ৪. সেভ করা (Submit Form)
+        // Submit All Form Changes
         document.getElementById('portfolioForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = document.getElementById('saveBtn');
@@ -644,7 +730,7 @@
 
             btn.disabled = true;
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
-            status.innerText = 'Publishing changes to live system...';
+            status.innerText = 'Publishing changes...';
             status.style.color = 'var(--primary)';
 
             const formData = new FormData();
@@ -654,9 +740,8 @@
             formData.append('heroTagline', document.getElementById('heroTagline').value);
             formData.append('btnSayHelloLink', document.getElementById('btnSayHelloLink').value);
             formData.append('btnPortfolioLink', document.getElementById('btnPortfolioLink').value);
-
-            formData.append('resumeLink', document.getElementById('resumeLink').value);
             formData.append('aboutBio', document.getElementById('aboutBio').value);
+
             formData.append('email', document.getElementById('email').value);
             formData.append('phone', document.getElementById('phone').value);
             formData.append('address', document.getElementById('address').value);
@@ -672,7 +757,7 @@
             };
             formData.append('socialLinks', JSON.stringify(socialLinks));
 
-            // Services Array
+            // Services
             const services = [];
             document.querySelectorAll('.service-item').forEach(row => {
                 services.push({
@@ -683,17 +768,17 @@
             });
             formData.append('services', JSON.stringify(services));
 
-            // Technologies Array
+            // Technologies
             const technologies = [];
             document.querySelectorAll('.tech-item').forEach(row => {
                 technologies.push({
                     name: row.querySelector('.tech-name').value,
-                    icon: row.querySelector('.tech-icon').value
+                    logo: row.querySelector('.tech-logo-base64').value
                 });
             });
             formData.append('technologies', JSON.stringify(technologies));
 
-            // Skills Array
+            // Skills
             const skills = [];
             document.querySelectorAll('.skill-item').forEach(row => {
                 skills.push({
@@ -703,7 +788,7 @@
             });
             formData.append('skills', JSON.stringify(skills));
 
-            // Education & Experience Array
+            // Timeline
             const education = [];
             document.querySelectorAll('.edu-item').forEach(row => {
                 education.push({
@@ -726,9 +811,15 @@
             formData.append('experience', JSON.stringify(experience));
 
             // Profile Picture
-            const fileInput = document.getElementById('profileImageInput');
-            if (fileInput.files.length > 0) {
-                formData.append('profileImage', fileInput.files[0]);
+            const profileFileInput = document.getElementById('profileImageInput');
+            if (profileFileInput.files.length > 0) {
+                formData.append('profileImage', profileFileInput.files[0]);
+            }
+
+            // Resume PDF File
+            const resumeFileInput = document.getElementById('resumeFileInput');
+            if (resumeFileInput.files.length > 0) {
+                formData.append('resumeFile', resumeFileInput.files[0]);
             }
 
             try {
@@ -740,7 +831,14 @@
                 if (res.ok) {
                     const result = await res.json();
                     if (result.profileImage) document.getElementById('imgPreview').src = result.profileImage;
-                    status.innerText = '✓ Saved successfully! Live site updated.';
+                    if (result.resumeFile) {
+                        document.getElementById('currentResumeStatus').innerText = '✓ PDF Resume is uploaded & active';
+                        document.getElementById('currentResumeStatus').style.color = 'var(--success)';
+                        const dlBtn = document.getElementById('btnDownloadCurrentResume');
+                        dlBtn.href = result.resumeFile;
+                        dlBtn.style.display = 'inline-flex';
+                    }
+                    status.innerText = '✓ All changes & icons saved live!';
                     status.style.color = 'var(--success)';
                 } else {
                     status.innerText = 'Failed to save updates.';
