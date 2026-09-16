@@ -4,21 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Master CMS | Md. Tamal Hossain</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #090d14;
-            --sidebar-bg: #0f1724;
-            --card-bg: #141e2e;
-            --card-border: #1e2c40;
+            --bg-dark: #070a0f;
+            --sidebar-bg: #0d131e;
+            --card-bg: #121b29;
+            --card-border: #1a273b;
             --primary: #f0bb62;
             --primary-hover: #e5aa4e;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --input-bg: #0b111b;
+            --input-bg: #090e16;
             --danger: #ef4444;
             --success: #10b981;
+            --blue: #38bdf8;
+            --purple: #c084fc;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -44,12 +46,12 @@
             gap: 12px;
             padding-bottom: 20px;
             border-bottom: 1px solid var(--card-border);
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .avatar-box {
-            width: 46px;
-            height: 46px;
+            width: 44px;
+            height: 44px;
             border-radius: 10px;
             overflow: hidden;
             border: 2px solid var(--primary);
@@ -62,9 +64,9 @@
         .brand-info p { font-size: 0.75rem; color: var(--success); display: flex; align-items: center; gap: 4px; }
         .brand-info p::before { content: ""; width: 6px; height: 6px; background: var(--success); border-radius: 50%; }
 
-        .nav-menu { list-style: none; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+        .nav-menu { list-style: none; display: flex; flex-direction: column; gap: 5px; flex: 1; }
         .nav-item {
-            padding: 11px 14px;
+            padding: 10px 14px;
             border-radius: 8px;
             color: var(--text-muted);
             display: flex;
@@ -78,7 +80,7 @@
         .nav-item:hover { background: rgba(240, 187, 98, 0.08); color: var(--text-main); }
         .nav-item.active { background: var(--primary); color: #000; font-weight: 700; }
 
-        .sidebar-footer { padding-top: 16px; border-top: 1px solid var(--card-border); }
+        .sidebar-footer { padding-top: 14px; border-top: 1px solid var(--card-border); }
         .btn-live {
             background: transparent;
             border: 1px solid var(--card-border);
@@ -100,17 +102,78 @@
             margin-left: 280px;
             flex: 1;
             padding: 36px 44px;
-            max-width: 1120px;
+            max-width: 1140px;
             min-height: 100vh;
         }
 
         .header-title { margin-bottom: 24px; }
-        .header-title h1 { font-size: 1.6rem; font-weight: 700; }
+        .header-title h1 { font-size: 1.65rem; font-weight: 800; }
         .header-title p { color: var(--text-muted); font-size: 0.85rem; margin-top: 4px; }
 
         .tab-pane { display: none; animation: fadeIn 0.25s ease; }
         .tab-pane.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* OVERVIEW METRICS GRID */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+        .metric-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        .metric-card::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--primary);
+        }
+        .metric-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        .icon-gold { background: rgba(240, 187, 98, 0.15); color: var(--primary); }
+        .icon-blue { background: rgba(56, 189, 248, 0.15); color: var(--blue); }
+        .icon-purple { background: rgba(192, 132, 252, 0.15); color: var(--purple); }
+        .icon-green { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+
+        .metric-info h3 { font-size: 1.6rem; font-weight: 800; line-height: 1.1; }
+        .metric-info p { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-top: 4px; }
+
+        /* CATEGORY BREAKDOWN PILLS */
+        .cat-breakdown-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .cat-pill {
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .cat-pill strong { color: var(--primary); }
 
         /* CARDS */
         .card {
@@ -148,17 +211,10 @@
             align-items: center;
             gap: 16px;
         }
-        .upload-card-box:hover { border-color: var(--primary); }
-
         .preview-thumb { width: 56px; height: 56px; border-radius: 8px; object-fit: contain; border: 1px solid var(--card-border); background: #000; padding: 2px; }
 
         /* CATEGORIES TAGS */
-        .cat-badges-wrap {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 14px;
-        }
+        .cat-badges-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
         .cat-badge {
             background: var(--input-bg);
             border: 1px solid var(--card-border);
@@ -170,11 +226,7 @@
             align-items: center;
             gap: 8px;
         }
-        .cat-badge span.remove-cat {
-            color: var(--danger);
-            cursor: pointer;
-            font-weight: bold;
-        }
+        .cat-badge span.remove-cat { color: var(--danger); cursor: pointer; font-weight: bold; }
 
         /* PROJECT CARDS */
         .project-grid {
@@ -191,27 +243,10 @@
             display: flex;
             flex-direction: column;
         }
-        .project-item-img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            background: #000;
-        }
-        .project-item-body {
-            padding: 14px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+        .project-item-img { width: 100%; height: 150px; object-fit: cover; background: #000; }
+        .project-item-body { padding: 14px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
 
-        .badge-type {
-            font-size: 0.72rem;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
+        .badge-type { font-size: 0.72rem; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; }
         .badge-url { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
         .badge-lightbox { background: rgba(240, 187, 98, 0.2); color: var(--primary); }
         .badge-scroll { background: rgba(16, 185, 129, 0.2); color: #34d399; }
@@ -220,7 +255,7 @@
         .action-bar {
             position: sticky;
             bottom: 20px;
-            background: rgba(15, 23, 36, 0.94);
+            background: rgba(13, 19, 30, 0.94);
             backdrop-filter: blur(12px);
             border: 1px solid var(--primary);
             border-radius: 12px;
@@ -232,7 +267,6 @@
             margin-top: 40px;
             z-index: 500;
         }
-
         .btn-save {
             background: var(--primary);
             color: #000;
@@ -327,12 +361,13 @@
             </div>
             <div class="brand-info">
                 <h4 id="dashBrandName">Tamal Hossain</h4>
-                <p>Dahsboard</p>
+                <p>Live CMS</p>
             </div>
         </div>
 
         <ul class="nav-menu">
-            <li class="nav-item active" onclick="switchTab('branding', this)"><i class="fa-solid fa-palette"></i> <span>Branding & Logos</span></li>
+            <li class="nav-item active" onclick="switchTab('overview', this)"><i class="fa-solid fa-chart-pie"></i> <span>Overview & Stats</span></li>
+            <li class="nav-item" onclick="switchTab('branding', this)"><i class="fa-solid fa-palette"></i> <span>Branding & Logos</span></li>
             <li class="nav-item" onclick="switchTab('hero', this)"><i class="fa-solid fa-wand-magic-sparkles"></i> <span>Hero Section</span></li>
             <li class="nav-item" onclick="switchTab('about', this)"><i class="fa-solid fa-user"></i> <span>About & Resume</span></li>
             <li class="nav-item" onclick="switchTab('funfacts', this)"><i class="fa-solid fa-calculator"></i> <span>Funfacts / Counter</span></li>
@@ -354,11 +389,79 @@
 
     <!-- MAIN VIEW -->
     <main class="main-content">
+
+        <!-- ==========================================================================
+             TAB 0: OVERVIEW & ANALYTICS DASHBOARD
+             ========================================================================== -->
+        <div id="tab-overview" class="tab-pane active">
+            <div class="header-title">
+                <h1>Portfolio Overview & Analytics</h1>
+                <p>Real-time status, project upload counts, and section-by-section health check.</p>
+            </div>
+
+            <!-- TOP METRIC CARDS -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon icon-gold"><i class="fa-solid fa-layer-group"></i></div>
+                    <div class="metric-info">
+                        <h3 id="statTotalProjects">0</h3>
+                        <p>Total Projects</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon icon-blue"><i class="fa-solid fa-microchip"></i></div>
+                    <div class="metric-info">
+                        <h3 id="statTotalTech">0</h3>
+                        <p>Tech Stack Logos</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon icon-purple"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="metric-info">
+                        <h3 id="statTotalSkills">0</h3>
+                        <p>Active Skills</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon icon-green"><i class="fa-solid fa-calculator"></i></div>
+                    <div class="metric-info">
+                        <h3 id="statTotalFacts">0</h3>
+                        <p>Funfact Stats</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATEGORY PROJECT DISTRIBUTION CARD -->
+            <div class="card">
+                <h3 style="margin-bottom: 8px; color: var(--primary);"><i class="fa-solid fa-chart-column"></i> Category-wise Project Breakdown</h3>
+                <p style="font-size: 0.82rem; color: var(--text-muted);">How your projects are distributed across different disciplines.</p>
+                <div id="statCatBreakdown" class="cat-breakdown-box"></div>
+            </div>
+
+            <!-- LIVE SYSTEM STATUS CARD -->
+            <div class="card">
+                <h3 style="margin-bottom: 12px; color: var(--primary);"><i class="fa-solid fa-shield-halved"></i> Live Ecosystem Status</h3>
+                <div class="grid-3">
+                    <div style="background: var(--input-bg); padding: 14px; border-radius: 8px; border: 1px solid var(--card-border);">
+                        <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Frontend Delivery</span>
+                        <h4 style="margin-top: 4px; color: var(--success);"><i class="fa-solid fa-circle-check"></i> Netlify CDN</h4>
+                    </div>
+                    <div style="background: var(--input-bg); padding: 14px; border-radius: 8px; border: 1px solid var(--card-border);">
+                        <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Backend Engine</span>
+                        <h4 style="margin-top: 4px; color: var(--success);"><i class="fa-solid fa-server"></i> Vercel Serverless</h4>
+                    </div>
+                    <div style="background: var(--input-bg); padding: 14px; border-radius: 8px; border: 1px solid var(--card-border);">
+                        <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Resume Attachment</span>
+                        <h4 id="statResumeHealth" style="margin-top: 4px; color: var(--primary);"><i class="fa-solid fa-file-pdf"></i> Active</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <!-- ==========================================================================
              TAB 1: BRANDING & LOGOS
              ========================================================================== -->
-        <div id="tab-branding" class="tab-pane active">
+        <div id="tab-branding" class="tab-pane">
             <div class="header-title">
                 <h1>Website Branding & Logos</h1>
                 <p>Manage your navbar brand logo, browser favicon, and admin dashboard avatar.</p>
@@ -547,7 +650,7 @@
         </div>
 
         <!-- ==========================================================================
-             TAB 8: PORTFOLIO PROJECTS (CUSTOM CATEGORIES, LIGHTBOX VS LIVE URL, SCROLLING)
+             TAB 8: PORTFOLIO PROJECTS
              ========================================================================== -->
         <div id="tab-projects" class="tab-pane">
             <div class="header-title">
@@ -555,7 +658,7 @@
                 <p>Manage dynamic categories, project action modes (Lightbox vs Live URL), and long screenshot scrolling.</p>
             </div>
 
-            <!-- 1. CATEGORY MANAGER -->
+            <!-- CATEGORY MANAGER -->
             <div class="card">
                 <h3 style="margin-bottom: 12px; color: var(--primary);"><i class="fa-solid fa-tags"></i> Manage Filter Categories</h3>
                 <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 14px;">These categories appear as filter buttons on your live website portfolio section.</p>
@@ -570,7 +673,7 @@
                 </div>
             </div>
 
-            <!-- 2. ADD PROJECT FORM -->
+            <!-- ADD PROJECT FORM -->
             <div class="card">
                 <h3 style="margin-bottom: 16px; color: var(--primary);"><i class="fa-solid fa-circle-plus"></i> Add New Project</h3>
                 
@@ -581,9 +684,7 @@
                     </div>
                     <div class="form-group">
                         <label>Category</label>
-                        <select id="newProjCategory" class="form-control">
-                            <!-- Dynamically populated from categories -->
-                        </select>
+                        <select id="newProjCategory" class="form-control"></select>
                     </div>
                 </div>
 
@@ -591,24 +692,23 @@
                     <div class="form-group">
                         <label>Click Action Mode</label>
                         <select id="newProjActionType" class="form-control" onchange="toggleActionTypeFields()">
-                            <option value="url">Open Live URL</option>
-                            <option value="lightbox">Open in Lightbox</option>
+                            <option value="url">Open Live URL (নতুন ট্যাবে সাইট বা ড্রাইভ লিংক ওপেন হবে)</option>
+                            <option value="lightbox">Open in Lightbox (পপআপে ফুল-স্ক্রিন প্রিভিউ হবে)</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label>Screenshot Frame Style</label>
                         <select id="newProjScrollMode" class="form-control">
-                            <option value="scroll">Long Screenshot</option>
-                            <option value="fit">Fit to Frame</option>
+                            <option value="scroll">Long Screenshot (মাউস নিলে ওপর থেকে নিচে স্ক্রোল হবে)</option>
+                            <option value="fit">Fit to Frame (সাধারণ ছবি - কোনো স্ক্রোল হবে না)</option>
                         </select>
                     </div>
                 </div>
 
-                <!-- URL Field (Toggled by action type) -->
                 <div id="liveUrlGroup" class="form-group">
                     <label>Live URL (Website link, Google Drive link, or Behance link)</label>
-                    <input type="text" id="newProjLiveUrl" class="form-control" placeholder="https://drive.google.com/... or https://your-site.com">
+                    <input type="text" id="newProjLiveUrl" class="form-control" placeholder="https://drive.google.com/... বা https://your-site.com">
                 </div>
 
                 <div class="form-group">
@@ -633,7 +733,7 @@
                 </button>
             </div>
 
-            <!-- 3. EXISTING PROJECTS LIST -->
+            <!-- EXISTING PROJECTS LIST -->
             <div class="card">
                 <h3 style="margin-bottom: 16px; color: var(--primary);">Existing Projects (<span id="projCount">0</span>)</h3>
                 <div id="projectCardsGrid" class="project-grid"></div>
@@ -701,6 +801,7 @@
         const API_PROJECTS = '/api/projects';
 
         let availableCategories = ['website', 'wordpress', 'graphic', 'photoshop', 'uiux'];
+        let cachedProjectsList = [];
 
         function switchTab(tabId, el) {
             document.querySelectorAll('.tab-pane').forEach(tab => tab.classList.remove('active'));
@@ -729,18 +830,12 @@
             }
         }
 
-        // Toggle Live URL input based on Action Type
         window.toggleActionTypeFields = function() {
             const action = document.getElementById('newProjActionType').value;
             const urlGroup = document.getElementById('liveUrlGroup');
-            if (action === 'lightbox') {
-                urlGroup.style.display = 'none';
-            } else {
-                urlGroup.style.display = 'flex';
-            }
+            urlGroup.style.display = (action === 'lightbox') ? 'none' : 'flex';
         };
 
-        // Render Categories Badge & Dropdown
         function renderCategoriesUI() {
             const badgeWrap = document.getElementById('categoriesBadgeWrap');
             const select = document.getElementById('newProjCategory');
@@ -777,7 +872,6 @@
             renderCategoriesUI();
         };
 
-        // FontAwesome Icon Live Update
         window.updateLiveIcon = function(input) {
             const row = input.closest('.service-item');
             const iconPreview = row.querySelector('.icon-live-preview i');
@@ -791,14 +885,14 @@
             updateLiveIcon(input);
         };
 
-        // 1. FUNFACT ROW
+        // DYNAMIC ROWS
         function addFunfactRow(data = {}) {
             const div = document.createElement('div');
             div.className = 'item-row funfact-item';
             div.innerHTML = `
                 <button type="button" class="item-remove-btn" onclick="this.parentElement.remove()"><i class="fa-solid fa-trash"></i></button>
                 <div class="grid-3">
-                    <div class="form-group"><label>Count / Number</label><input type="text" class="form-control fact-number" value="${data.number || ''}" placeholder="5+ or 150+"></div>
+                    <div class="form-group"><label>Count / Number</label><input type="text" class="form-control fact-number" value="${data.number || ''}" placeholder="5+ বা 150+"></div>
                     <div class="form-group"><label>Label / Title</label><input type="text" class="form-control fact-label" value="${data.label || ''}" placeholder="Years of Experience"></div>
                     <div class="form-group"><label>Icon Class (FontAwesome)</label><input type="text" class="form-control fact-icon" value="${data.icon || 'fa-solid fa-award'}" placeholder="fa-solid fa-award"></div>
                 </div>
@@ -806,22 +900,20 @@
             document.getElementById('funfactsContainer').appendChild(div);
         }
 
-        // 2. SOCIAL ROW
         function addSocialRow(data = {}) {
             const div = document.createElement('div');
             div.className = 'item-row social-item';
             div.innerHTML = `
                 <button type="button" class="item-remove-btn" onclick="this.parentElement.remove()"><i class="fa-solid fa-trash"></i></button>
                 <div class="grid-3">
-                    <div class="form-group"><label>Platform Name</label><input type="text" class="form-control social-name" value="${data.name || ''}" placeholder="GitHub / LinkedIn / WhatsApp"></div>
+                    <div class="form-group"><label>Platform Name</label><input type="text" class="form-control social-name" value="${data.name || ''}" placeholder="GitHub / LinkedIn"></div>
                     <div class="form-group"><label>FontAwesome Icon Class</label><input type="text" class="form-control social-icon" value="${data.icon || ''}" placeholder="fa-brands fa-github"></div>
-                    <div class="form-group"><label>Profile / Channel URL</label><input type="text" class="form-control social-url" value="${data.url || ''}" placeholder="https://..."></div>
+                    <div class="form-group"><label>Profile URL</label><input type="text" class="form-control social-url" value="${data.url || ''}" placeholder="https://..."></div>
                 </div>
             `;
             document.getElementById('socialsContainer').appendChild(div);
         }
 
-        // 3. SERVICE ROW
         function addServiceRow(data = {}) {
             const div = document.createElement('div');
             div.className = 'item-row service-item';
@@ -852,7 +944,6 @@
             document.getElementById('servicesContainer').appendChild(div);
         }
 
-        // 4. TECH ROW
         function addTechRow(data = {}) {
             const div = document.createElement('div');
             div.className = 'item-row tech-item';
@@ -882,7 +973,6 @@
             }
         };
 
-        // 5. SKILL ROW
         function addSkillRow(data = {}) {
             const div = document.createElement('div');
             div.className = 'item-row skill-item';
@@ -896,7 +986,6 @@
             document.getElementById('skillsContainer').appendChild(div);
         }
 
-        // 6. TIMELINE
         function addEduRow(data = {}) {
             const div = document.createElement('div');
             div.className = 'item-row edu-item';
@@ -926,156 +1015,185 @@
             document.getElementById('experienceContainer').appendChild(div);
         }
 
+        // UPDATE OVERVIEW METRICS
+        function updateOverviewUI(profileData, projectsData) {
+            document.getElementById('statTotalProjects').innerText = projectsData.length;
+            document.getElementById('statTotalTech').innerText = (profileData.technologies || []).length;
+            document.getElementById('statTotalSkills').innerText = (profileData.skills || []).length;
+            document.getElementById('statTotalFacts').innerText = (profileData.funfacts || []).length;
+
+            const resumeEl = document.getElementById('statResumeHealth');
+            if (profileData.resumeFile) {
+                resumeEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> PDF Uploaded';
+                resumeEl.style.color = 'var(--success)';
+            } else {
+                resumeEl.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Not Set';
+                resumeEl.style.color = 'var(--danger)';
+            }
+
+            // Category Breakdown Map
+            const catMap = {};
+            projectsData.forEach(p => {
+                const cat = p.category || 'uncategorized';
+                catMap[cat] = (catMap[cat] || 0) + 1;
+            });
+
+            const breakdownWrap = document.getElementById('statCatBreakdown');
+            if (Object.keys(catMap).length === 0) {
+                breakdownWrap.innerHTML = '<p style="font-size:0.85rem; color:var(--text-muted);">No projects uploaded yet.</p>';
+            } else {
+                breakdownWrap.innerHTML = Object.entries(catMap).map(([cat, count]) => `
+                    <div class="cat-pill">
+                        <span style="text-transform: capitalize;">${cat}:</span>
+                        <strong>${count} Project${count > 1 ? 's' : ''}</strong>
+                    </div>
+                `).join('');
+            }
+        }
+
         // LOAD DATA
         async function loadAllMasterData() {
             try {
+                let profileData = {};
+                let projectsData = [];
+
                 const res = await fetch(API_PROFILE);
                 if (res.ok) {
-                    const data = await res.json();
+                    profileData = await res.json();
 
-                    // Categories
-                    if (data.projectCategories && data.projectCategories.length > 0) {
-                        availableCategories = data.projectCategories;
+                    if (profileData.projectCategories && profileData.projectCategories.length > 0) {
+                        availableCategories = profileData.projectCategories;
                     }
                     renderCategoriesUI();
 
-                    // Branding
-                    if (data.siteLogo) {
-                        document.getElementById('siteLogoPreview').src = data.siteLogo;
-                        document.getElementById('siteLogoBase64').value = data.siteLogo;
+                    if (profileData.siteLogo) {
+                        document.getElementById('siteLogoPreview').src = profileData.siteLogo;
+                        document.getElementById('siteLogoBase64').value = profileData.siteLogo;
                     }
-                    if (data.siteFavicon) {
-                        document.getElementById('siteFaviconPreview').src = data.siteFavicon;
-                        document.getElementById('siteFaviconBase64').value = data.siteFavicon;
+                    if (profileData.siteFavicon) {
+                        document.getElementById('siteFaviconPreview').src = profileData.siteFavicon;
+                        document.getElementById('siteFaviconBase64').value = profileData.siteFavicon;
                     }
-                    if (data.dashboardAvatar) {
-                        document.getElementById('dashAvatarPreview').src = data.dashboardAvatar;
-                        document.getElementById('dashAvatarImg').src = data.dashboardAvatar;
-                        document.getElementById('dashAvatarBase64').value = data.dashboardAvatar;
+                    if (profileData.dashboardAvatar) {
+                        document.getElementById('dashAvatarPreview').src = profileData.dashboardAvatar;
+                        document.getElementById('dashAvatarImg').src = profileData.dashboardAvatar;
+                        document.getElementById('dashAvatarBase64').value = profileData.dashboardAvatar;
                     }
 
-                    // Hero
-                    if (data.badgeText) document.getElementById('badgeText').value = data.badgeText;
-                    if (data.name) {
-                        document.getElementById('name').value = data.name;
-                        document.getElementById('dashBrandName').innerText = data.name;
+                    if (profileData.badgeText) document.getElementById('badgeText').value = profileData.badgeText;
+                    if (profileData.name) {
+                        document.getElementById('name').value = profileData.name;
+                        document.getElementById('dashBrandName').innerText = profileData.name;
                     }
-                    if (data.typingTitles) document.getElementById('typingTitles').value = data.typingTitles;
-                    if (data.heroTagline) document.getElementById('heroTagline').value = data.heroTagline;
-                    if (data.btnSayHelloLink) document.getElementById('btnSayHelloLink').value = data.btnSayHelloLink;
-                    if (data.btnPortfolioLink) document.getElementById('btnPortfolioLink').value = data.btnPortfolioLink;
+                    if (profileData.typingTitles) document.getElementById('typingTitles').value = profileData.typingTitles;
+                    if (profileData.heroTagline) document.getElementById('heroTagline').value = profileData.heroTagline;
+                    if (profileData.btnSayHelloLink) document.getElementById('btnSayHelloLink').value = profileData.btnSayHelloLink;
+                    if (profileData.btnPortfolioLink) document.getElementById('btnPortfolioLink').value = profileData.btnPortfolioLink;
 
-                    // About
-                    if (data.aboutBio) document.getElementById('aboutBio').value = data.aboutBio;
-                    if (data.profileImage) document.getElementById('imgPreview').src = data.profileImage;
-                    if (data.resumeFile) {
+                    if (profileData.aboutBio) document.getElementById('aboutBio').value = profileData.aboutBio;
+                    if (profileData.profileImage) document.getElementById('imgPreview').src = profileData.profileImage;
+                    if (profileData.resumeFile) {
                         document.getElementById('currentResumeStatus').innerText = '✓ PDF Resume is active';
                         document.getElementById('currentResumeStatus').style.color = 'var(--success)';
                         const dlBtn = document.getElementById('btnDownloadCurrentResume');
-                        dlBtn.href = data.resumeFile;
+                        dlBtn.href = profileData.resumeFile;
                         dlBtn.style.display = 'inline-flex';
                     }
 
-                    // Funfacts
                     document.getElementById('funfactsContainer').innerHTML = '';
-                    if (data.funfacts && data.funfacts.length > 0) {
-                        data.funfacts.forEach(f => addFunfactRow(f));
+                    if (profileData.funfacts && profileData.funfacts.length > 0) {
+                        profileData.funfacts.forEach(f => addFunfactRow(f));
                     } else {
                         addFunfactRow({ number: '3+', label: 'Years Experience', icon: 'fa-solid fa-briefcase' });
                         addFunfactRow({ number: '150+', label: 'Completed Projects', icon: 'fa-solid fa-layer-group' });
-                        addFunfactRow({ number: '99%', label: 'Client Satisfaction', icon: 'fa-solid fa-face-smile' });
                     }
 
-                    // Services
                     document.getElementById('servicesContainer').innerHTML = '';
-                    if (data.services && data.services.length > 0) {
-                        data.services.forEach(s => addServiceRow(s));
+                    if (profileData.services && profileData.services.length > 0) {
+                        profileData.services.forEach(s => addServiceRow(s));
                     } else {
                         addServiceRow({ title: 'Web Design', icon: 'fa-solid fa-globe', desc: 'Modern responsive websites.' });
                         addServiceRow({ title: 'WordPress Development', icon: 'fa-brands fa-wordpress', desc: 'Custom theme & WooCommerce.' });
                     }
 
-                    // Technologies
                     document.getElementById('technologiesContainer').innerHTML = '';
-                    if (data.technologies && data.technologies.length > 0) {
-                        data.technologies.forEach(t => addTechRow(t));
+                    if (profileData.technologies && profileData.technologies.length > 0) {
+                        profileData.technologies.forEach(t => addTechRow(t));
                     } else {
                         addTechRow({ name: 'React', logo: '' });
                         addTechRow({ name: 'WordPress', logo: '' });
                     }
 
-                    // Skills
                     document.getElementById('skillsContainer').innerHTML = '';
-                    if (data.skills && data.skills.length > 0) {
-                        data.skills.forEach(sk => addSkillRow(sk));
+                    if (profileData.skills && profileData.skills.length > 0) {
+                        profileData.skills.forEach(sk => addSkillRow(sk));
                     } else {
                         addSkillRow({ name: 'WordPress', percentage: 95 });
                         addSkillRow({ name: 'Front-End Coding', percentage: 90 });
                     }
 
-                    // Timeline
                     document.getElementById('educationContainer').innerHTML = '';
-                    if (data.education && data.education.length > 0) data.education.forEach(ed => addEduRow(ed));
+                    if (profileData.education && profileData.education.length > 0) profileData.education.forEach(ed => addEduRow(ed));
 
                     document.getElementById('experienceContainer').innerHTML = '';
-                    if (data.experience && data.experience.length > 0) data.experience.forEach(ex => addExpRow(ex));
+                    if (profileData.experience && profileData.experience.length > 0) profileData.experience.forEach(ex => addExpRow(ex));
 
-                    // Contact & Socials
-                    if (data.email) document.getElementById('email').value = data.email;
-                    if (data.phone) document.getElementById('phone').value = data.phone;
-                    if (data.address) document.getElementById('address').value = data.address;
+                    if (profileData.email) document.getElementById('email').value = profileData.email;
+                    if (profileData.phone) document.getElementById('phone').value = profileData.phone;
+                    if (profileData.address) document.getElementById('address').value = profileData.address;
 
                     document.getElementById('socialsContainer').innerHTML = '';
-                    if (data.socialLinks && data.socialLinks.length > 0) {
-                        data.socialLinks.forEach(sc => addSocialRow(sc));
+                    if (profileData.socialLinks && profileData.socialLinks.length > 0) {
+                        profileData.socialLinks.forEach(sc => addSocialRow(sc));
                     } else {
                         addSocialRow({ name: 'GitHub', icon: 'fa-brands fa-github', url: 'https://github.com/tamalhossain123' });
                         addSocialRow({ name: 'LinkedIn', icon: 'fa-brands fa-linkedin', url: 'https://linkedin.com/in/' });
-                        addSocialRow({ name: 'WhatsApp', icon: 'fa-brands fa-whatsapp', url: 'https://wa.me/8801730048626' });
                     }
                 }
 
-                loadProjectsList();
+                // Projects
+                const projRes = await fetch(API_PROJECTS);
+                if (projRes.ok) {
+                    projectsData = await projRes.json();
+                    cachedProjectsList = projectsData;
+                    renderProjectsListUI(projectsData);
+                }
+
+                // Overview Card Update
+                updateOverviewUI(profileData, projectsData);
 
             } catch (err) {
                 console.error(err);
             }
         }
 
-        // LOAD PROJECTS
-        async function loadProjectsList() {
-            try {
-                const res = await fetch(API_PROJECTS);
-                if (!res.ok) return;
-                const projects = await res.json();
-                document.getElementById('projCount').innerText = projects.length;
-
-                const grid = document.getElementById('projectCardsGrid');
-                grid.innerHTML = projects.map(p => {
-                    const isLightbox = p.actionType === 'lightbox';
-                    const isScroll = p.scrollMode === 'scroll';
-                    return `
-                        <div class="project-item-card">
-                            <img src="${p.image || 'assets/img/tech-placeholder.png'}" class="project-item-img" alt="${p.title}">
-                            <div class="project-item-body">
-                                <div>
-                                    <div style="display:flex; gap:6px; margin-bottom: 6px; flex-wrap:wrap;">
-                                        <span class="badge-type ${isLightbox ? 'badge-lightbox' : 'badge-url'}">${isLightbox ? '🔍 Lightbox' : '🔗 Live Link'}</span>
-                                        <span class="badge-type badge-scroll">${isScroll ? '↕ Long Scroll' : '◻ Standard'}</span>
-                                        <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">${p.category}</span>
-                                    </div>
-                                    <h4 style="margin: 4px 0 8px;">${p.title}</h4>
-                                    <p style="font-size:0.8rem; color:var(--text-muted);">${p.description || ''}</p>
+        function renderProjectsListUI(projects) {
+            document.getElementById('projCount').innerText = projects.length;
+            const grid = document.getElementById('projectCardsGrid');
+            grid.innerHTML = projects.map(p => {
+                const isLightbox = p.actionType === 'lightbox';
+                const isScroll = p.scrollMode === 'scroll';
+                return `
+                    <div class="project-item-card">
+                        <img src="${p.image || 'assets/img/tech-placeholder.png'}" class="project-item-img" alt="${p.title}">
+                        <div class="project-item-body">
+                            <div>
+                                <div style="display:flex; gap:6px; margin-bottom: 6px; flex-wrap:wrap;">
+                                    <span class="badge-type ${isLightbox ? 'badge-lightbox' : 'badge-url'}">${isLightbox ? '🔍 Lightbox' : '🔗 Live Link'}</span>
+                                    <span class="badge-type badge-scroll">${isScroll ? '↕ Long Scroll' : '◻ Standard'}</span>
+                                    <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">${p.category}</span>
                                 </div>
-                                <div style="margin-top: 14px; display:flex; justify-content:space-between; align-items:center;">
-                                    ${p.liveUrl && !isLightbox ? `<a href="${p.liveUrl}" target="_blank" style="color:var(--primary); font-size:0.82rem; text-decoration:none;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Preview</a>` : '<span style="font-size:0.78rem; color:var(--primary);"><i class="fa-solid fa-magnifying-glass-plus"></i> Lightbox</span>'}
-                                    <button type="button" onclick="handleDeleteProject('${p._id}')" style="background:rgba(239,68,68,0.15); color:var(--danger); border:none; padding:5px 10px; border-radius:5px; font-size:0.75rem; cursor:pointer;"><i class="fa-solid fa-trash"></i> Delete</button>
-                                </div>
+                                <h4 style="margin: 4px 0 8px;">${p.title}</h4>
+                                <p style="font-size:0.8rem; color:var(--text-muted);">${p.description || ''}</p>
+                            </div>
+                            <div style="margin-top: 14px; display:flex; justify-content:space-between; align-items:center;">
+                                ${p.liveUrl && !isLightbox ? `<a href="${p.liveUrl}" target="_blank" style="color:var(--primary); font-size:0.82rem; text-decoration:none;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live</a>` : '<span style="font-size:0.78rem; color:var(--primary);"><i class="fa-solid fa-magnifying-glass-plus"></i> Lightbox</span>'}
+                                <button type="button" onclick="handleDeleteProject('${p._id}')" style="background:rgba(239,68,68,0.15); color:var(--danger); border:none; padding:5px 10px; border-radius:5px; font-size:0.75rem; cursor:pointer;"><i class="fa-solid fa-trash"></i> Delete</button>
                             </div>
                         </div>
-                    `;
-                }).join('');
-            } catch (e) { console.error(e); }
+                    </div>
+                `;
+            }).join('');
         }
 
         // CREATE NEW PROJECT
@@ -1105,7 +1223,7 @@
                     document.getElementById('newProjDesc').value = '';
                     document.getElementById('newProjImgPreview').src = '';
                     document.getElementById('newProjImgBase64').value = '';
-                    loadProjectsList();
+                    loadAllMasterData();
                 } else {
                     alert('Failed to save project');
                 }
@@ -1121,14 +1239,14 @@
             try {
                 const res = await fetch(`${API_PROJECTS}/${id}`, { method: 'DELETE' });
                 if (res.ok) {
-                    loadProjectsList();
+                    loadAllMasterData();
                 } else {
                     alert('Failed to delete project');
                 }
             } catch (err) { console.error(err); }
         }
 
-        // SAVE ALL PROFILE DATA (Including categories)
+        // SAVE ALL PROFILE DATA
         async function handleSaveAllProfileData() {
             const btn = document.getElementById('saveBtn');
             const status = document.getElementById('statusMsg');
@@ -1140,26 +1258,19 @@
 
             const formData = new FormData();
 
-            // Categories
             formData.append('projectCategories', JSON.stringify(availableCategories));
-
-            // Branding
             formData.append('siteLogo', document.getElementById('siteLogoBase64').value);
             formData.append('siteFavicon', document.getElementById('siteFaviconBase64').value);
             formData.append('dashboardAvatar', document.getElementById('dashAvatarBase64').value);
 
-            // Hero
             formData.append('badgeText', document.getElementById('badgeText').value);
             formData.append('name', document.getElementById('name').value);
             formData.append('typingTitles', document.getElementById('typingTitles').value);
             formData.append('heroTagline', document.getElementById('heroTagline').value);
             formData.append('btnSayHelloLink', document.getElementById('btnSayHelloLink').value);
             formData.append('btnPortfolioLink', document.getElementById('btnPortfolioLink').value);
-
-            // About
             formData.append('aboutBio', document.getElementById('aboutBio').value);
 
-            // Contact
             formData.append('email', document.getElementById('email').value);
             formData.append('phone', document.getElementById('phone').value);
             formData.append('address', document.getElementById('address').value);
@@ -1249,17 +1360,9 @@
             try {
                 const res = await fetch(API_PROFILE, { method: 'POST', body: formData });
                 if (res.ok) {
-                    const result = await res.json();
-                    if (result.profileImage) document.getElementById('imgPreview').src = result.profileImage;
-                    if (result.resumeFile) {
-                        document.getElementById('currentResumeStatus').innerText = '✓ PDF Resume is active';
-                        document.getElementById('currentResumeStatus').style.color = 'var(--success)';
-                        const dlBtn = document.getElementById('btnDownloadCurrentResume');
-                        dlBtn.href = result.resumeFile;
-                        dlBtn.style.display = 'inline-flex';
-                    }
                     status.innerText = '✓ Saved successfully! Live site updated.';
                     status.style.color = 'var(--success)';
+                    loadAllMasterData();
                 } else {
                     status.innerText = 'Failed to save updates.';
                     status.style.color = 'var(--danger)';
