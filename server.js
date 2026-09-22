@@ -6,12 +6,60 @@ require('dotenv').config();
 
 const app = express();
 
-// Middlewares
+// Middlewares & CORS
 app.use(cors({ origin: true, credentials: true }));
+app.options('*', cors());
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ extended: true, limit: '20mb' }));
 
-// Vercel Serverless MongoDB Connection Caching
+// ==========================================
+// 1. ADMIN AUTHENTICATION API (ZERO BLOCKING)
+// ==========================================
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'tamalhossain908@gmail.com';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'iam@tamal@123#@';
+const JWT_SECRET = process.env.JWT_SECRET || 'tamal_portfolio_secret_key_2026';
+
+const handleLogin = (req, res) => {
+    // যেকোনো ফরম্যাটে পাঠানো ইমেইল ও পাসওয়ার্ড রিসিভ করা
+    const email = req.body.email || req.body.adminEmail || req.body.username;
+    const password = req.body.password || req.body.adminPassword;
+
+    if (!email || !password) {
+        return res.status(400).json({ 
+            success: false, 
+            message: 'Email and password are required' 
+        });
+    }
+
+    const cleanEmail = email.trim().toLowerCase();
+    const targetEmail = ADMIN_EMAIL.trim().toLowerCase();
+
+    if (cleanEmail === targetEmail && (password === ADMIN_PASSWORD || password === process.env.ADMIN_PASSWORD)) {
+        const token = jwt.sign({ email: targetEmail, role: 'admin' }, JWT_SECRET, { expiresIn: '7d' });
+        return res.status(200).json({
+            success: true,
+            token,
+            message: 'Authentication successful',
+            admin: { email: targetEmail, name: 'Md. Tamal Hossain' }
+        });
+    }
+
+    return res.status(401).json({ 
+        success: false, 
+        message: 'Invalid admin email or password' 
+    });
+};
+
+// ফ্রন্টএন্ড যে রাউটেই হিট করুক না কেন, লগইন সাকসেস হবে
+app.post('/api/auth/login', handleLogin);
+app.post('/api/admin/login', handleLogin);
+app.post('/api/login', handleLogin);
+app.post('/admin/login', handleLogin);
+app.post('/admin', handleLogin);
+
+// ==========================================
+// 2. SAFE MONGODB CONNECTION (NON-BLOCKING)
+// ==========================================
 let isConnected = false;
 const connectDB = async () => {
     if (isConnected || mongoose.connection.readyState >= 1) {
@@ -19,11 +67,13 @@ const connectDB = async () => {
         return;
     }
     if (!process.env.MONGO_URI) {
-        console.warn('⚠️ MONGO_URI environment variable is missing!');
+        console.warn('⚠️ MONGO_URI missing in Environment Variables!');
         return;
     }
     try {
-        const db = await mongoose.connect(process.env.MONGO_URI);
+        const db = await mongoose.connect(process.env.MONGO_URI, {
+            serverSelectionTimeoutMS: 5000 // ৫ সেকেন্ডে রেসপন্স না পেলে ফেইল করবে, Vercel হ্যাং করবে না
+        });
         isConnected = db.connections[0].readyState === 1;
         console.log('✅ MongoDB Connected Successfully');
     } catch (err) {
@@ -31,45 +81,14 @@ const connectDB = async () => {
     }
 };
 
-app.use(async (req, res, next) => {
+// শুধুমাত্র ডাটাবেজের রাউটগুলোর জন্য DB কানেক্ট করবে
+const requireDB = async (req, res, next) => {
     await connectDB();
     next();
-});
-
-// ==========================================
-// 1. ADMIN AUTHENTICATION API
-// ==========================================
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'tamalhossain908@gmail.com';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'iam@tamal@123#@';
-const JWT_SECRET = process.env.JWT_SECRET || 'tamal_portfolio_secret_key_2026';
-
-// উভয় কমন লগইন রাউট হ্যান্ডেল করা হলো
-const handleLogin = (req, res) => {
-    const { email, password } = req.body;
-
-    if (!email || !password) {
-        return res.status(400).json({ success: false, message: 'Email and password are required' });
-    }
-
-    if (email === ADMIN_EMAIL && (password === ADMIN_PASSWORD || password === process.env.ADMIN_PASSWORD)) {
-        const token = jwt.sign({ email, role: 'admin' }, JWT_SECRET, { expiresIn: '7d' });
-        return res.status(200).json({
-            success: true,
-            token,
-            message: 'Authentication successful',
-            admin: { email: ADMIN_EMAIL, name: 'Md. Tamal Hossain' }
-        });
-    }
-
-    return res.status(401).json({ success: false, message: 'Invalid admin credentials' });
 };
 
-app.post('/api/auth/login', handleLogin);
-app.post('/api/admin/login', handleLogin);
-app.post('/api/login', handleLogin);
-
 // ==========================================
-// 2. PORTFOLIO DATA SCHEMAS & MODELS
+// 3. SCHEMAS & MODELS
 // ==========================================
 const ProjectSchema = new mongoose.Schema({
     title: { type: String, required: true },
@@ -83,7 +102,6 @@ const ProjectSchema = new mongoose.Schema({
 
 const Project = mongoose.models.Project || mongoose.model('Project', ProjectSchema);
 
-// Profile Schema
 const ProfileSchema = new mongoose.Schema({
     siteLogo: { type: String, default: '' },
     siteFavicon: { type: String, default: '' },
@@ -111,11 +129,11 @@ const ProfileSchema = new mongoose.Schema({
 const Profile = mongoose.models.Profile || mongoose.model('Profile', ProfileSchema);
 
 // ==========================================
-// 3. API ROUTES (Profile & Projects)
+// 4. CMS API ROUTES
 // ==========================================
 
-// GET Profile
-app.get('/api/profile', async (req, res) => {
+// Profile Routes
+app.get('/api/profile', requireDB, async (req, res) => {
     try {
         let profile = await Profile.findOne();
         if (!profile) profile = await Profile.create({});
@@ -125,8 +143,7 @@ app.get('/api/profile', async (req, res) => {
     }
 });
 
-// POST Profile Updates
-app.post('/api/profile', async (req, res) => {
+app.post('/api/profile', requireDB, async (req, res) => {
     try {
         let profile = await Profile.findOne();
         if (!profile) profile = new Profile();
@@ -138,8 +155,8 @@ app.post('/api/profile', async (req, res) => {
     }
 });
 
-// GET Projects
-app.get('/api/projects', async (req, res) => {
+// Projects Routes
+app.get('/api/projects', requireDB, async (req, res) => {
     try {
         const projects = await Project.find().sort({ createdAt: -1 });
         res.status(200).json(projects);
@@ -148,8 +165,7 @@ app.get('/api/projects', async (req, res) => {
     }
 });
 
-// POST Add Project
-app.post('/api/projects', async (req, res) => {
+app.post('/api/projects', requireDB, async (req, res) => {
     try {
         const newProject = await Project.create(req.body);
         res.status(201).json(newProject);
@@ -158,8 +174,7 @@ app.post('/api/projects', async (req, res) => {
     }
 });
 
-// DELETE Project
-app.delete('/api/projects/:id', async (req, res) => {
+app.delete('/api/projects/:id', requireDB, async (req, res) => {
     try {
         await Project.findByIdAndDelete(req.params.id);
         res.status(200).json({ message: 'Project deleted' });
@@ -168,12 +183,12 @@ app.delete('/api/projects/:id', async (req, res) => {
     }
 });
 
-// Health Check
+// Root Health Check
 app.get('/', (req, res) => {
     res.json({ status: 'live', message: 'Portfolio Master CMS Backend Running' });
 });
 
-// Local Development Server
+// Local Development
 const PORT = process.env.PORT || 5000;
 if (process.env.NODE_ENV !== 'production') {
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
