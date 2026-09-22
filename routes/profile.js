@@ -1,18 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 const multer = require('multer');
+const Profile = require('../models/Profile');
 
-// Vercel-Safe Memory Storage
+// Vercel-Safe Memory Storage (নো লোকাল ডিস্ক রাইট)
 const upload = multer({
     storage: multer.memoryStorage(),
-    limits: { fileSize: 10 * 1024 * 1024 }
+    limits: { fileSize: 10 * 1024 * 1024 } // 10MB Limit
 });
 
-// ইনিশিয়াল প্লেসহোল্ডার ডেটা (যাতে সাইট কখনো ফাঁকা না দেখায়)
+// ইনিশিয়াল প্লেসহোল্ডার ডেটা
 const defaultProfile = {
     siteLogo: 'assets/img/logo.png',
-    siteFavicon: 'assets/img/favicon.ico',
+    siteFavicon: './assets/img/favicon.ico',
     dashboardAvatar: 'assets/img/profile-pic.png',
     projectCategories: ['website', 'wordpress', 'photoshop', 'illustrator'],
 
@@ -23,7 +23,7 @@ const defaultProfile = {
     btnSayHelloLink: '#contact',
     btnPortfolioLink: '#portfolio',
 
-    aboutBio: 'I am a passionate Front-End Developer and Creative Designer dedicated to building high-performance, accessible, and visually compelling web applications. With expertise spanning modern JavaScript frameworks, custom WordPress architectures, and intuitive UI/UX design, I bridge the gap between creative visual concepts and robust code.',
+    aboutBio: 'I am a passionate Front-End Developer and Creative Designer dedicated to building high-performance, accessible, and visually compelling web applications. With expertise spanning modern JavaScript frameworks, custom WordPress architectures, and intuitive UI/UX design, I bridge the gap between creative visual concepts and robust code.\n\nEvery project is approached with precision—focusing on clean code, seamless user journeys, and search-optimized structure.',
     profileImage: 'assets/img/profile-pic.png',
     resumeFile: '#',
 
@@ -85,59 +85,83 @@ const defaultProfile = {
     ]
 };
 
-// Mongoose Schema
-const ProfileSchema = new mongoose.Schema({
-    siteLogo: { type: String, default: defaultProfile.siteLogo },
-    siteFavicon: { type: String, default: defaultProfile.siteFavicon },
-    dashboardAvatar: { type: String, default: defaultProfile.dashboardAvatar },
-    projectCategories: { type: [String], default: defaultProfile.projectCategories },
-
-    badgeText: { type: String, default: defaultProfile.badgeText },
-    name: { type: String, default: defaultProfile.name },
-    typingTitles: { type: String, default: defaultProfile.typingTitles },
-    heroTagline: { type: String, default: defaultProfile.heroTagline },
-    btnSayHelloLink: { type: String, default: defaultProfile.btnSayHelloLink },
-    btnPortfolioLink: { type: String, default: defaultProfile.btnPortfolioLink },
-
-    aboutBio: { type: String, default: defaultProfile.aboutBio },
-    profileImage: { type: String, default: defaultProfile.profileImage },
-    resumeFile: { type: String, default: defaultProfile.resumeFile },
-
-    funfacts: [{ number: String, label: String, icon: String }],
-    services: [{ title: String, icon: String, desc: String }],
-    technologies: [{ name: String, logo: String }],
-    skills: [{ name: String, percentage: Number }],
-    education: [{ degree: String, institute: String, year: String }],
-    experience: [{ role: String, company: String, duration: String, description: String }],
-
-    email: { type: String, default: defaultProfile.email },
-    phone: { type: String, default: defaultProfile.phone },
-    address: { type: String, default: defaultProfile.address },
-    socialLinks: [{ name: String, icon: String, url: String }]
-}, { timestamps: true });
-
-const Profile = mongoose.models.Profile || mongoose.model('Profile', ProfileSchema);
-
+// JSON পার্সিং নিরাপদ করার হেল্পার
 const parseData = (val, fallback = []) => {
     if (!val) return fallback;
     if (typeof val === 'object') return val;
     try { return JSON.parse(val); } catch (e) { return fallback; }
 };
 
-// GET: লোড প্রোফাইল (না থাকলে ডিফল্ট ক্রিয়েট হবে)
+// ==========================================================================
+// GET /api/profile (লোড প্রোফাইল - অটো-হিলিং ডিফল্ট ডেটা সহ)
+// ==========================================================================
 router.get('/', async (req, res) => {
     try {
         let profile = await Profile.findOne();
+        
         if (!profile) {
+            // ডাটাবেজ সম্পূর্ণ খালি থাকলে নতুন ক্রিয়েট করবে
             profile = await Profile.create(defaultProfile);
+        } else {
+            // পুরনো ডকুমেন্টে নতুন সেকশন মিসিং থাকলে অটো-ফিল করবে
+            let needsSave = false;
+
+            if (!profile.services || profile.services.length === 0) {
+                profile.services = defaultProfile.services;
+                needsSave = true;
+            }
+            if (!profile.funfacts || profile.funfacts.length === 0) {
+                profile.funfacts = defaultProfile.funfacts;
+                needsSave = true;
+            }
+            if (!profile.technologies || profile.technologies.length === 0) {
+                profile.technologies = defaultProfile.technologies;
+                needsSave = true;
+            }
+            if (!profile.skills || profile.skills.length === 0) {
+                profile.skills = defaultProfile.skills;
+                needsSave = true;
+            }
+            if (!profile.education || profile.education.length === 0) {
+                profile.education = defaultProfile.education;
+                needsSave = true;
+            }
+            if (!profile.experience || profile.experience.length === 0) {
+                profile.experience = defaultProfile.experience;
+                needsSave = true;
+            }
+            if (!profile.socialLinks || profile.socialLinks.length === 0) {
+                profile.socialLinks = defaultProfile.socialLinks;
+                needsSave = true;
+            }
+            if (!profile.projectCategories || profile.projectCategories.length === 0) {
+                profile.projectCategories = defaultProfile.projectCategories;
+                needsSave = true;
+            }
+            if (!profile.heroTagline) {
+                profile.heroTagline = defaultProfile.heroTagline;
+                needsSave = true;
+            }
+            if (!profile.typingTitles) {
+                profile.typingTitles = defaultProfile.typingTitles;
+                needsSave = true;
+            }
+
+            if (needsSave) {
+                await profile.save();
+            }
         }
+
         res.status(200).json(profile);
     } catch (err) {
+        console.error('Fetch profile error:', err);
         res.status(500).json({ error: 'Failed to fetch profile', details: err.message });
     }
 });
 
-// POST: ড্যাশবোর্ড সেভ
+// ==========================================================================
+// POST /api/profile (ড্যাশবোর্ডের সমস্ত ডেটা সেভ)
+// ==========================================================================
 router.post('/', upload.any(), async (req, res) => {
     try {
         let profile = await Profile.findOne();
@@ -145,11 +169,13 @@ router.post('/', upload.any(), async (req, res) => {
 
         const data = req.body || {};
 
+        // ১. ব্র্যান্ডিং
         if (data.siteLogo !== undefined) profile.siteLogo = data.siteLogo;
         if (data.siteFavicon !== undefined) profile.siteFavicon = data.siteFavicon;
         if (data.dashboardAvatar !== undefined) profile.dashboardAvatar = data.dashboardAvatar;
         if (data.projectCategories) profile.projectCategories = parseData(data.projectCategories, profile.projectCategories);
 
+        // ২. হিরো সেকশন
         if (data.badgeText !== undefined) profile.badgeText = data.badgeText;
         if (data.name !== undefined) profile.name = data.name;
         if (data.typingTitles !== undefined) profile.typingTitles = data.typingTitles;
@@ -157,9 +183,10 @@ router.post('/', upload.any(), async (req, res) => {
         if (data.btnSayHelloLink !== undefined) profile.btnSayHelloLink = data.btnSayHelloLink;
         if (data.btnPortfolioLink !== undefined) profile.btnPortfolioLink = data.btnPortfolioLink;
 
+        // ৩. অ্যাবাউট ও বায়ো
         if (data.aboutBio !== undefined) profile.aboutBio = data.aboutBio;
 
-        // Base64 ফাইল কনভার্সন
+        // ৪. ফাইল আপলোড (Base64 কনভার্সন - Vercel-Safe)
         if (req.files && req.files.length > 0) {
             req.files.forEach(file => {
                 const b64 = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
@@ -174,6 +201,7 @@ router.post('/', upload.any(), async (req, res) => {
             profile.resumeFile = data.resumeFile;
         }
 
+        // ৫. ডাইনামিক অ্যারে সমুহ
         if (data.funfacts) profile.funfacts = parseData(data.funfacts, profile.funfacts);
         if (data.services) profile.services = parseData(data.services, profile.services);
         if (data.technologies) profile.technologies = parseData(data.technologies, profile.technologies);
@@ -181,15 +209,20 @@ router.post('/', upload.any(), async (req, res) => {
         if (data.education) profile.education = parseData(data.education, profile.education);
         if (data.experience) profile.experience = parseData(data.experience, profile.experience);
 
+        // ৬. কনট্যাক্ট ও সোশ্যালস
         if (data.email !== undefined) profile.email = data.email;
         if (data.phone !== undefined) profile.phone = data.phone;
         if (data.address !== undefined) profile.address = data.address;
         if (data.socialLinks) profile.socialLinks = parseData(data.socialLinks, profile.socialLinks);
 
         const savedProfile = await profile.save();
-        res.status(200).json({ message: 'Saved successfully', profile: savedProfile });
+        res.status(200).json({ 
+            message: 'Profile saved successfully!', 
+            profile: savedProfile 
+        });
     } catch (err) {
-        res.status(500).json({ error: 'Failed to save', details: err.message });
+        console.error('Save profile error:', err);
+        res.status(500).json({ error: 'Failed to save profile', details: err.message });
     }
 });
 
