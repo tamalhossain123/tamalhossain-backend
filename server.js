@@ -4,7 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 // User মডেলটি ইমপোর্ট করা হলো
-const User = require('./models/user');
+const User = require('./models/User');
 
 const app = express();
 
