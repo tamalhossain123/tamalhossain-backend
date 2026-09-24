@@ -6,21 +6,19 @@ require('dotenv').config();
 
 const app = express();
 
-// Middlewares & CORS
+// Middlewares (Express 5 এ শুধু app.use(cors) দিলেই OPTIONS হ্যান্ডেল হয়ে যায়)
 app.use(cors({ origin: true, credentials: true }));
-app.options('*', cors());
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ extended: true, limit: '20mb' }));
 
 // ==========================================
-// 1. ADMIN AUTHENTICATION API (ZERO BLOCKING)
+// 1. ADMIN AUTHENTICATION API (NON-BLOCKING)
 // ==========================================
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'tamalhossain908@gmail.com';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'iam@tamal@123#@';
 const JWT_SECRET = process.env.JWT_SECRET || 'tamal_portfolio_secret_key_2026';
 
 const handleLogin = (req, res) => {
-    // যেকোনো ফরম্যাটে পাঠানো ইমেইল ও পাসওয়ার্ড রিসিভ করা
     const email = req.body.email || req.body.adminEmail || req.body.username;
     const password = req.body.password || req.body.adminPassword;
 
@@ -50,7 +48,7 @@ const handleLogin = (req, res) => {
     });
 };
 
-// ফ্রন্টএন্ড যে রাউটেই হিট করুক না কেন, লগইন সাকসেস হবে
+// All Auth Endpoints
 app.post('/api/auth/login', handleLogin);
 app.post('/api/admin/login', handleLogin);
 app.post('/api/login', handleLogin);
@@ -58,7 +56,7 @@ app.post('/admin/login', handleLogin);
 app.post('/admin', handleLogin);
 
 // ==========================================
-// 2. SAFE MONGODB CONNECTION (NON-BLOCKING)
+// 2. SAFE MONGODB CONNECTION
 // ==========================================
 let isConnected = false;
 const connectDB = async () => {
@@ -72,7 +70,7 @@ const connectDB = async () => {
     }
     try {
         const db = await mongoose.connect(process.env.MONGO_URI, {
-            serverSelectionTimeoutMS: 5000 // ৫ সেকেন্ডে রেসপন্স না পেলে ফেইল করবে, Vercel হ্যাং করবে না
+            serverSelectionTimeoutMS: 5000
         });
         isConnected = db.connections[0].readyState === 1;
         console.log('✅ MongoDB Connected Successfully');
@@ -81,7 +79,6 @@ const connectDB = async () => {
     }
 };
 
-// শুধুমাত্র ডাটাবেজের রাউটগুলোর জন্য DB কানেক্ট করবে
 const requireDB = async (req, res, next) => {
     await connectDB();
     next();
