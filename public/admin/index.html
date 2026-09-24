@@ -630,10 +630,12 @@
 
     <!-- SCRIPT ENGINE -->
     <script>
-        const API_PROFILE = '/api/profile';
-        const API_PROJECTS = '/api/projects';
-        const API_LOGIN = '/api/auth/login';
+        // আপনার Vercel ব্যাকএন্ডের লিংক
+        const BACKEND_URL = 'https://tamalhossain-backend.vercel.app'; 
 
+        const API_PROFILE = `${BACKEND_URL}/api/profile`;
+        const API_PROJECTS = `${BACKEND_URL}/api/projects`;
+        const API_LOGIN = `${BACKEND_URL}/api/auth/login`;
         let availableCategories = ['website', 'wordpress', 'graphic', 'photoshop', 'uiux'];
         let cachedProjectsList = [];
 
