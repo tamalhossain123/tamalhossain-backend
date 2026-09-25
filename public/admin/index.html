@@ -30,6 +30,10 @@
         --card-border-hover: #2d374d;
         --card-inner: #0b0e14;
 
+        --lg-bg-color: rgba(255, 255, 255, 0.12);
+        --lg-highlight: rgba(255, 255, 255, 0.55);
+        --lg-hover-glow: rgba(255, 255, 255, 0.18);
+
         /* Deliberate subtle luxury accent (Warm champagne amber + crisp steel) */
         --accent: #e5a93c;
         --accent-muted: rgba(229, 169, 60, 0.12);
@@ -523,20 +527,24 @@
       }
 
       .metric-card {
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 55%), var(--lg-bg-color);
+        border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: var(--radius-lg);
         padding: 20px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         min-height: 110px;
+        backdrop-filter: blur(18px) saturate(140%);
+        -webkit-backdrop-filter: blur(18px) saturate(140%);
+        box-shadow: inset 1px 1px 0 var(--lg-highlight), inset 0 0 8px rgba(255, 255, 255, 0.12), 0 8px 24px rgba(0, 0, 0, 0.22);
         transition: var(--transition);
       }
 
       .metric-card:hover {
-        border-color: var(--card-border-hover);
-        background: #141924;
+        border-color: rgba(255, 255, 255, 0.36);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06) 55%), var(--lg-bg-color);
+        box-shadow: inset 1px 1px 0 var(--lg-highlight), inset 0 0 12px var(--lg-hover-glow), 0 12px 30px rgba(0, 0, 0, 0.28);
       }
 
       .metric-card-top {
@@ -601,12 +609,14 @@
 
       /* CARDS & FORMS */
       .card {
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 55%), var(--lg-bg-color);
+        border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: var(--radius-lg);
         padding: 24px;
         margin-bottom: 20px;
-        box-shadow: var(--shadow-subtle);
+        backdrop-filter: blur(18px) saturate(140%);
+        -webkit-backdrop-filter: blur(18px) saturate(140%);
+        box-shadow: inset 1px 1px 0 var(--lg-highlight), inset 0 0 8px rgba(255, 255, 255, 0.12), 0 8px 24px rgba(0, 0, 0, 0.22);
       }
 
       .card-header-line {
@@ -693,18 +703,21 @@
       }
 
       .upload-card-box {
-        background: var(--card-inner);
-        border: 1px solid var(--card-border);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03) 60%), rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.16);
         border-radius: var(--radius-md);
         padding: 14px 18px;
         display: flex;
         align-items: center;
         gap: 16px;
+        backdrop-filter: blur(14px) saturate(135%);
+        -webkit-backdrop-filter: blur(14px) saturate(135%);
+        box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.4), inset 0 0 6px rgba(255, 255, 255, 0.08);
         transition: var(--transition);
       }
 
       .upload-card-box:hover {
-        border-color: var(--card-border-hover);
+        border-color: rgba(255, 255, 255, 0.32);
       }
 
       .preview-thumb {
@@ -782,17 +795,20 @@
       }
 
       .project-item-card {
-        background: var(--card-inner);
-        border: 1px solid var(--card-border);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.03) 55%), rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.18);
         border-radius: var(--radius-md);
         overflow: hidden;
         display: flex;
         flex-direction: column;
+        backdrop-filter: blur(16px) saturate(140%);
+        -webkit-backdrop-filter: blur(16px) saturate(140%);
+        box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.48), inset 0 0 7px rgba(255, 255, 255, 0.1), 0 8px 22px rgba(0, 0, 0, 0.22);
         transition: var(--transition);
       }
 
       .project-item-card:hover {
-        border-color: var(--card-border-hover);
+        border-color: rgba(255, 255, 255, 0.34);
         transform: translateY(-2px);
       }
 
@@ -825,17 +841,20 @@
 
       /* DYNAMIC ROWS */
       .item-row {
-        background: var(--card-inner);
-        border: 1px solid var(--card-border);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03) 60%), rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.16);
         border-radius: var(--radius-md);
         padding: 16px;
         margin-bottom: 12px;
         position: relative;
+        backdrop-filter: blur(14px) saturate(135%);
+        -webkit-backdrop-filter: blur(14px) saturate(135%);
+        box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.4), inset 0 0 6px rgba(255, 255, 255, 0.08), 0 6px 18px rgba(0, 0, 0, 0.18);
         transition: var(--transition);
       }
 
       .item-row:hover {
-        border-color: var(--card-border-hover);
+        border-color: rgba(255, 255, 255, 0.3);
       }
 
       .item-remove-btn {
@@ -921,15 +940,16 @@
       .action-bar {
         position: sticky;
         bottom: 20px;
-        background: rgba(14, 18, 26, 0.95);
-        backdrop-filter: blur(14px);
-        border: 1px solid var(--card-border);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 55%), rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px) saturate(145%);
+        -webkit-backdrop-filter: blur(20px) saturate(145%);
+        border: 1px solid rgba(255, 255, 255, 0.22);
         border-radius: var(--radius-lg);
         padding: 14px 24px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.7);
+        box-shadow: inset 1px 1px 0 var(--lg-highlight), inset 0 0 9px rgba(255, 255, 255, 0.12), 0 16px 36px -8px rgba(0, 0, 0, 0.7);
         margin-top: 36px;
         z-index: 500;
       }
@@ -960,7 +980,7 @@
         cursor: pointer;
         display: flex;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: center;
         transition: all 0.2s;
       }
 
