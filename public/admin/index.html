@@ -70,10 +70,32 @@
 
       body {
         background-color: var(--bg-base);
+        background-image:
+          radial-gradient(circle at 18% 32%, rgba(241, 245, 249, 0.55) 0 1px, transparent 1.5px),
+          radial-gradient(circle at 72% 68%, rgba(229, 169, 60, 0.42) 0 1px, transparent 1.5px);
+        background-size: 420px 420px, 700px 700px;
+        background-position: 0 0, 0 0;
+        background-repeat: repeat;
+        animation: sky 82s linear infinite;
         color: var(--text-primary);
         min-height: 100vh;
         overflow-x: hidden;
         position: relative;
+      }
+
+      @keyframes sky {
+        50% {
+          background-position: 300px 0, 600px 0;
+        }
+        100% {
+          background-position: 600px 0, 1200px 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        body {
+          animation: none;
+        }
       }
 
       /* ==========================================
