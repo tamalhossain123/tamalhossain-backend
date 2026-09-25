@@ -228,6 +228,137 @@
       }
 
       /* ==========================================
+         CUSTOM COMPONENT STYLES
+         (Floating Label Input & Animated Fly Button)
+         ========================================== */
+      .relative {
+        position: relative;
+      }
+
+      .input-base {
+        border-radius: 10px;
+      }
+
+      /* Floating Label */
+      #label-input,
+      .floating-label {
+        transition: all 0.15s ease-in-out;
+        color: var(--text-secondary);
+        position: absolute;
+        top: 50%;
+        left: 18px;
+        transform: translateY(-50%) scale(0.95);
+        transform-origin: left center;
+        opacity: 0.85;
+        pointer-events: none;
+        font-size: 0.86rem;
+        z-index: 2;
+      }
+
+      /* Floating Input Field */
+      #input,
+      .floating-input {
+        transition: outline 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        font-size: 0.95rem;
+        outline: unset;
+        border: 1px solid var(--input-border);
+        padding: 18px 14px 10px 17px;
+        width: 100%;
+        background: var(--input-bg);
+        color: var(--text-primary);
+        border-radius: 10px;
+        box-sizing: border-box;
+      }
+
+      #input:focus,
+      .floating-input:focus {
+        border-color: royalblue;
+        box-shadow: 0 0 0 1px #e8e8e8, 0 0 0 3px rgb(92, 127, 202);
+      }
+
+      /* Floating Label Activated on Focus or Filled State */
+      #input:focus ~ label#label-input,
+      #input:not(:placeholder-shown) ~ #label-input,
+      .floating-input:focus ~ .floating-label,
+      .floating-input:not(:placeholder-shown) ~ .floating-label {
+        top: 0 !important;
+        left: 14px !important;
+        transform: translateY(-50%) scale(0.8);
+        background: var(--card-bg);
+        color: #60a5fa;
+        padding: 0 6px;
+        opacity: 1;
+        font-weight: 600;
+        border-radius: 4px;
+      }
+
+      /* Animated Fly Button Style */
+      button.btn-login-submit,
+      button.btn-fly {
+        font-family: inherit;
+        font-size: 17px;
+        background: royalblue;
+        color: white;
+        padding: 0.75em 1.25em;
+        padding-left: 1em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 14px;
+        overflow: hidden;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 12px;
+      }
+
+      button.btn-login-submit span,
+      button.btn-fly span {
+        display: block;
+        margin-left: 0.4em;
+        font-weight: 600;
+        transition: all 0.3s ease-in-out;
+      }
+
+      button.btn-login-submit svg,
+      button.btn-fly svg {
+        display: block;
+        transform-origin: center center;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      button.btn-login-submit:hover .svg-wrapper,
+      button.btn-fly:hover .svg-wrapper {
+        animation: fly-1 0.6s ease-in-out infinite alternate;
+      }
+
+      button.btn-login-submit:hover svg,
+      button.btn-fly:hover svg {
+        transform: translateX(1.2em) rotate(45deg) scale(1.1);
+      }
+
+      button.btn-login-submit:hover span,
+      button.btn-fly:hover span {
+        transform: translateX(5em);
+        opacity: 0;
+      }
+
+      button.btn-login-submit:active,
+      button.btn-fly:active {
+        transform: scale(0.95);
+      }
+
+      @keyframes fly-1 {
+        from {
+          transform: translateY(0.1em);
+        }
+        to {
+          transform: translateY(-0.1em);
+        }
+      }
+
+      /* ==========================================
          MAIN LAYOUT & SIDEBAR
          ========================================== */
       #cmsAppWrapper {
@@ -944,10 +1075,23 @@
         align-items: center;
         gap: 8px;
         transition: var(--transition);
+        overflow: hidden;
       }
 
       .btn-save:hover {
         background: var(--accent-hover);
+      }
+
+      .btn-save svg {
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .btn-save:hover .svg-wrapper {
+        animation: fly-1 0.6s ease-in-out infinite alternate;
+      }
+
+      .btn-save:hover svg {
+        transform: translateX(0.4em) rotate(35deg) scale(1.1);
       }
 
       .btn-secondary {
@@ -967,27 +1111,6 @@
       .btn-secondary:hover {
         background: #202737;
         border-color: var(--card-border-hover);
-      }
-
-      .btn-login-submit {
-        width: 100%;
-        background: var(--accent);
-        color: #0c0e12;
-        border: none;
-        padding: 15px 18px;
-        font-size: 0.86rem;
-        font-weight: 600;
-        border-radius: var(--radius-md);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        transition: var(--transition);
-        margin-top: 10px;
-      }
-      .btn-login-submit:hover {
-        background: var(--accent-hover);
       }
 
       /* RESPONSIVE */
@@ -1075,18 +1198,25 @@
           <p>Authenticate with master credentials to access the studio manager.</p>
         </div>
         <div class="login-error-msg" id="loginError"></div>
+
+        <!-- Floating Label Inputs & Animated Fly Button Integrated -->
         <form class="login-form" onsubmit="handleAdminLogin(event)">
-          <div class="form-group">
-            <label>Admin Email</label>
-            <input class="form-control" id="loginEmail" placeholder="tamalhossain908@gmail.com" required="" type="email" />
+          <div class="form-group relative" style="margin-bottom: 22px;">
+            <input class="floating-input input-base" id="loginEmail" placeholder=" " required="" type="email" autocomplete="email" />
+            <label class="floating-label" id="label-input" for="loginEmail">Admin Email</label>
           </div>
-          <div class="form-group">
-            <label>Master Password</label>
-            <input class="form-control" id="loginPassword" placeholder="••••••••" required="" type="password" />
+          <div class="form-group relative" style="margin-bottom: 22px;">
+            <input class="floating-input input-base" id="loginPassword" placeholder=" " required="" type="password" autocomplete="current-password" />
+            <label class="floating-label" id="label-input-pass" for="loginPassword">Master Password</label>
           </div>
           <button class="btn-login-submit" id="loginSubmitBtn" type="submit">
+            <div class="svg-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+              </svg>
+            </div>
             <span>Sign In to Studio</span>
-            <i class="fa-solid fa-arrow-right"></i>
           </button>
         </form>
       </div>
@@ -1571,7 +1701,12 @@
             Ready to publish changes
           </span>
           <button class="btn-save" id="saveBtn" onclick="handleSaveAllProfileData()" type="button">
-            <i class="fa-solid fa-floppy-disk"></i>
+            <div class="svg-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+              </svg>
+            </div>
             <span>Save All Changes</span>
           </button>
         </div>
@@ -1733,8 +1868,15 @@
           errBox.style.display = "block";
         } finally {
           submitBtn.disabled = false;
-          submitBtn.innerHTML =
-            '<span>Sign In to Studio</span> <i class="fa-solid fa-arrow-right"></i>';
+          submitBtn.innerHTML = `
+            <div class="svg-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+              </svg>
+            </div>
+            <span>Sign In to Studio</span>
+          `;
         }
       }
 
@@ -2355,8 +2497,15 @@
           status.style.color = "var(--danger)";
         } finally {
           btn.disabled = false;
-          btn.innerHTML =
-            '<i class="fa-solid fa-floppy-disk"></i> <span>Save All Changes</span>';
+          btn.innerHTML = `
+            <div class="svg-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+              </svg>
+            </div>
+            <span>Save All Changes</span>
+          `;
         }
       }
 
