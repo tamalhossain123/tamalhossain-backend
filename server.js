@@ -82,4 +82,18 @@ if (process.env.NODE_ENV !== 'production') {
     app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
 }
 
+
+
+
+const path = require('path');
+
+// ১. public ফোল্ডারকে স্ট্যাটিক হিসেবে ডিক্লেয়ার করুন (যদি অলরেডি না থাকে)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// ২. /admin বা /admin/ এ হিট করলে আপনার CMS HTML ফাইলটি সার্ভ করবে
+app.get('/admin', (req, res) => {
+  // আপনার HTML ফাইলটি যে নামে আছে (যেমন: admin.html বা tamal_portfolio_master_cms.html)
+  res.sendFile(path.join(__dirname, 'public', 'admin.html')); 
+});
+
 module.exports = app;

@@ -132,4 +132,37 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+const { optimizeBase64Image } = require('../utils/imageOptimizer');
+
+// POST /api/projects
+router.post('/', async (req, res) => {
+  try {
+    let { title, category, actionType, scrollMode, liveUrl, description, image } = req.body;
+
+    if (!title || !image) {
+      return res.status(400).json({ message: 'Title and image are required' });
+    }
+
+    // 🔥 এখানে ইমেজ অটো কম্প্রেস হয়ে যাবে
+    const compressedImage = await optimizeBase64Image(image);
+
+    const project = new Project({
+      title,
+      category,
+      actionType,
+      scrollMode,
+      liveUrl,
+      description,
+      image: compressedImage // ৫০-১০০ KB এর সুপার লাইটওয়েট WebP
+    });
+
+    await project.save();
+    res.status(201).json(project);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to create project' });
+  }
+});
+
 module.exports = router;
+
