@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -56,8 +56,11 @@
         --radius-lg: 14px;
         --radius-xl: 18px;
 
-        --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.4), 0 2px 8px -2px rgba(0, 0, 0, 0.5);
-        --shadow-lift: 0 12px 30px -8px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.04);
+        --shadow-subtle:
+          0 1px 2px 0 rgba(0, 0, 0, 0.4), 0 2px 8px -2px rgba(0, 0, 0, 0.5);
+        --shadow-lift:
+          0 12px 30px -8px rgba(0, 0, 0, 0.65),
+          0 0 0 1px rgba(255, 255, 255, 0.04);
         --font-mono: "JetBrains Mono", monospace;
         --transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
       }
@@ -66,7 +69,13 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
         -webkit-font-smoothing: antialiased;
       }
 
@@ -108,7 +117,11 @@
         content: "";
         position: fixed;
         inset: 0;
-        background-image: radial-gradient(circle at 50% 0%, rgba(23, 29, 43, 0.6) 0%, transparent 75%);
+        background-image: radial-gradient(
+          circle at 50% 0%,
+          rgba(23, 29, 43, 0.6) 0%,
+          transparent 75%
+        );
         pointer-events: none;
         z-index: 0;
       }
@@ -510,8 +523,14 @@
       }
 
       @keyframes fadeInContent {
-        from { opacity: 0; transform: translateY(4px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(4px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       /* OVERVIEW METRICS */
@@ -819,9 +838,21 @@
         font-weight: 500;
         font-family: var(--font-mono);
       }
-      .badge-url { background: rgba(59, 130, 246, 0.1); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.2); }
-      .badge-lightbox { background: var(--accent-muted); color: var(--accent); border: 1px solid rgba(229, 169, 60, 0.25); }
-      .badge-scroll { background: rgba(16, 185, 129, 0.1); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.2); }
+      .badge-url {
+        background: rgba(59, 130, 246, 0.1);
+        color: #60a5fa;
+        border: 1px solid rgba(59, 130, 246, 0.2);
+      }
+      .badge-lightbox {
+        background: var(--accent-muted);
+        color: var(--accent);
+        border: 1px solid rgba(229, 169, 60, 0.25);
+      }
+      .badge-scroll {
+        background: rgba(16, 185, 129, 0.1);
+        color: #34d399;
+        border: 1px solid rgba(16, 185, 129, 0.2);
+      }
 
       /* DYNAMIC ROWS */
       .item-row {
@@ -982,7 +1013,9 @@
         opacity: 0;
         overflow: hidden;
         white-space: nowrap;
-        transition: max-width 0.3s ease-in-out, margin-left 0.3s ease-in-out,
+        transition:
+          max-width 0.3s ease-in-out,
+          margin-left 0.3s ease-in-out,
           opacity 0.2s ease-in-out;
       }
 
@@ -1125,35 +1158,61 @@
         <i class="fa-solid fa-cube" style="color: var(--accent)"></i>
         <span>Studio CMS</span>
       </div>
-      <button aria-label="Toggle Navigation" class="mobile-hamburger-btn" onclick="toggleMobileSidebar()">
+      <button
+        aria-label="Toggle Navigation"
+        class="mobile-hamburger-btn"
+        onclick="toggleMobileSidebar()"
+      >
         <i class="fa-solid fa-bars"></i>
       </button>
     </header>
 
     <!-- Mobile Sidebar Backdrop -->
-    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleMobileSidebar()"></div>
+    <div
+      class="sidebar-backdrop"
+      id="sidebarBackdrop"
+      onclick="toggleMobileSidebar()"
+    ></div>
 
     <!-- ==========================================
          1. EDITORIAL AUTH OVERLAY
          ========================================== -->
-    <div class="login-overlay" id="loginOverlay" style="display: none !important">
+    <div
+      class="login-overlay"
+      id="loginOverlay"
+      style="display: none !important"
+    >
       <div class="login-card">
         <div class="login-header">
           <div class="studio-mark">
             <i class="fa-solid fa-cube"></i>
           </div>
           <h2>Tamal Portfolio Dashboard</h2>
-          <p>Welcome back! Please enter your credentials to access the dashboard.</p>
+          <p>
+            Welcome back! Please enter your credentials to access the dashboard.
+          </p>
         </div>
         <div class="login-error-msg" id="loginError"></div>
         <form class="login-form" onsubmit="handleAdminLogin(event)">
           <div class="form-group">
             <label>Admin Email</label>
-            <input class="form-control" id="loginEmail" placeholder="tamalhossain908@gmail.com" required="" type="email" />
+            <input
+              class="form-control"
+              id="loginEmail"
+              placeholder="tamalhossain908@gmail.com"
+              required=""
+              type="email"
+            />
           </div>
           <div class="form-group">
             <label>Master Password</label>
-            <input class="form-control" id="loginPassword" placeholder="••••••••" required="" type="password" />
+            <input
+              class="form-control"
+              id="loginPassword"
+              placeholder="••••••••"
+              required=""
+              type="password"
+            />
           </div>
           <button class="btn-login-submit" id="loginSubmitBtn" type="submit">
             <span>Sign In to Studio</span>
@@ -1174,7 +1233,10 @@
             <img
               alt="Admin Avatar"
               id="dashAvatarImg"
-              onerror='this.src="https://6a9fa28044e10f718926737a.imgix.net/sandbox/e67eb556-f125-4e24-95ad-8aff21b9926a.jpg?auto=format&fit=crop&w=48&h=48&q=80&dpr=2&crop=faces&bg=00000000"'
+              onerror="
+                this.src =
+                  'https://6a9fa28044e10f718926737a.imgix.net/sandbox/e67eb556-f125-4e24-95ad-8aff21b9926a.jpg?auto=format&fit=crop&w=48&h=48&q=80&dpr=2&crop=faces&bg=00000000'
+              "
               src="https://6a9fa28044e10f718926737a.imgix.net/sandbox/e67eb556-f125-4e24-95ad-8aff21b9926a.jpg?auto=format&fit=crop&w=48&h=48&q=80&dpr=2&crop=faces&bg=00000000"
             />
           </div>
@@ -1198,7 +1260,8 @@
             <i class="fa-solid fa-user-circle"></i> <span>About & Bio</span>
           </li>
           <li class="nav-item" onclick="switchTab('funfacts', this)">
-            <i class="fa-solid fa-arrow-trend-up"></i> <span>Stats & Funfacts</span>
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            <span>Stats & Funfacts</span>
           </li>
           <li class="nav-item" onclick="switchTab('services', this)">
             <i class="fa-solid fa-briefcase"></i> <span>Services</span>
@@ -1220,11 +1283,19 @@
           </li>
         </ul>
         <div class="sidebar-footer">
-          <a class="btn-live" href="https://tamalhossain.netlify.app" target="_blank">
+          <a
+            class="btn-live"
+            href="https://tamalhossain.netlify.app"
+            target="_blank"
+          >
             <i class="fa-solid fa-arrow-up-right-from-square"></i>
             <span>View Live Site</span>
           </a>
-          <button class="btn-logout" onclick="handleAdminLogout()" type="button">
+          <button
+            class="btn-logout"
+            onclick="handleAdminLogout()"
+            type="button"
+          >
             <i class="fa-solid fa-arrow-right-from-bracket"></i>
             <span>Sign Out</span>
           </button>
@@ -1239,7 +1310,9 @@
             <div class="header-title-inner">
               <div>
                 <h1>Overview</h1>
-                <p>System metrics, content distribution, and ecosystem status.</p>
+                <p>
+                  System metrics, content distribution, and ecosystem status.
+                </p>
               </div>
               <span class="header-badge">PROD // NETLIFY</span>
             </div>
@@ -1248,7 +1321,9 @@
             <div class="metric-card">
               <div class="metric-card-top">
                 <span class="metric-label">Published Projects</span>
-                <div class="metric-icon-dot"><i class="fa-solid fa-folder"></i></div>
+                <div class="metric-icon-dot">
+                  <i class="fa-solid fa-folder"></i>
+                </div>
               </div>
               <div class="metric-info">
                 <h3 id="statTotalProjects">0</h3>
@@ -1257,7 +1332,9 @@
             <div class="metric-card">
               <div class="metric-card-top">
                 <span class="metric-label">Tech Stack Badges</span>
-                <div class="metric-icon-dot"><i class="fa-solid fa-layer-group"></i></div>
+                <div class="metric-icon-dot">
+                  <i class="fa-solid fa-layer-group"></i>
+                </div>
               </div>
               <div class="metric-info">
                 <h3 id="statTotalTech">0</h3>
@@ -1266,7 +1343,9 @@
             <div class="metric-card">
               <div class="metric-card-top">
                 <span class="metric-label">Skills Tracked</span>
-                <div class="metric-icon-dot"><i class="fa-solid fa-chart-simple"></i></div>
+                <div class="metric-icon-dot">
+                  <i class="fa-solid fa-chart-simple"></i>
+                </div>
               </div>
               <div class="metric-info">
                 <h3 id="statTotalSkills">0</h3>
@@ -1275,7 +1354,9 @@
             <div class="metric-card">
               <div class="metric-card-top">
                 <span class="metric-label">Metric Counters</span>
-                <div class="metric-icon-dot"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                <div class="metric-icon-dot">
+                  <i class="fa-solid fa-arrow-trend-up"></i>
+                </div>
               </div>
               <div class="metric-info">
                 <h3 id="statTotalFacts">0</h3>
@@ -1284,31 +1365,131 @@
           </div>
           <div class="card">
             <div class="card-header-line">
-              <h3 class="card-title"><i class="fa-solid fa-tags"></i> Category Distribution</h3>
+              <h3 class="card-title">
+                <i class="fa-solid fa-tags"></i> Category Distribution
+              </h3>
             </div>
             <div class="cat-breakdown-box" id="statCatBreakdown"></div>
           </div>
           <div class="card">
             <div class="card-header-line">
-              <h3 class="card-title"><i class="fa-solid fa-server"></i> System Status</h3>
+              <h3 class="card-title">
+                <i class="fa-solid fa-server"></i> System Status
+              </h3>
             </div>
             <div class="grid-3">
-              <div style="background: var(--card-inner); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--card-border);">
-                <span style="font-size: 0.72rem; color: var(--text-tertiary); text-transform: uppercase; font-family: var(--font-mono)">Frontend Engine</span>
-                <h4 style="margin-top: 6px; font-size: 0.9rem; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
-                  <span style="width: 7px; height: 7px; background: var(--emerald); border-radius: 50%"></span> Netlify Edge CDN
+              <div
+                style="
+                  background: var(--card-inner);
+                  padding: 16px;
+                  border-radius: var(--radius-md);
+                  border: 1px solid var(--card-border);
+                "
+              >
+                <span
+                  style="
+                    font-size: 0.72rem;
+                    color: var(--text-tertiary);
+                    text-transform: uppercase;
+                    font-family: var(--font-mono);
+                  "
+                  >Frontend Engine</span
+                >
+                <h4
+                  style="
+                    margin-top: 6px;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    color: var(--text-primary);
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                  "
+                >
+                  <span
+                    style="
+                      width: 7px;
+                      height: 7px;
+                      background: var(--emerald);
+                      border-radius: 50%;
+                    "
+                  ></span>
+                  Netlify Edge CDN
                 </h4>
               </div>
-              <div style="background: var(--card-inner); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--card-border);">
-                <span style="font-size: 0.72rem; color: var(--text-tertiary); text-transform: uppercase; font-family: var(--font-mono)">Backend API</span>
-                <h4 style="margin-top: 6px; font-size: 0.9rem; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
-                  <span style="width: 7px; height: 7px; background: var(--emerald); border-radius: 50%"></span> Vercel Serverless
+              <div
+                style="
+                  background: var(--card-inner);
+                  padding: 16px;
+                  border-radius: var(--radius-md);
+                  border: 1px solid var(--card-border);
+                "
+              >
+                <span
+                  style="
+                    font-size: 0.72rem;
+                    color: var(--text-tertiary);
+                    text-transform: uppercase;
+                    font-family: var(--font-mono);
+                  "
+                  >Backend API</span
+                >
+                <h4
+                  style="
+                    margin-top: 6px;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    color: var(--text-primary);
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                  "
+                >
+                  <span
+                    style="
+                      width: 7px;
+                      height: 7px;
+                      background: var(--emerald);
+                      border-radius: 50%;
+                    "
+                  ></span>
+                  Vercel Serverless
                 </h4>
               </div>
-              <div style="background: var(--card-inner); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--card-border);">
-                <span style="font-size: 0.72rem; color: var(--text-tertiary); text-transform: uppercase; font-family: var(--font-mono)">Document Storage</span>
-                <h4 id="statResumeHealth" style="margin-top: 6px; font-size: 0.9rem; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
-                  <i class="fa-regular fa-file-pdf" style="color: var(--accent)"></i> Ready
+              <div
+                style="
+                  background: var(--card-inner);
+                  padding: 16px;
+                  border-radius: var(--radius-md);
+                  border: 1px solid var(--card-border);
+                "
+              >
+                <span
+                  style="
+                    font-size: 0.72rem;
+                    color: var(--text-tertiary);
+                    text-transform: uppercase;
+                    font-family: var(--font-mono);
+                  "
+                  >Document Storage</span
+                >
+                <h4
+                  id="statResumeHealth"
+                  style="
+                    margin-top: 6px;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    color: var(--text-primary);
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                  "
+                >
+                  <i
+                    class="fa-regular fa-file-pdf"
+                    style="color: var(--accent)"
+                  ></i>
+                  Ready
                 </h4>
               </div>
             </div>
@@ -1319,15 +1500,34 @@
         <div class="tab-pane" id="tab-branding">
           <div class="header-title">
             <h1>Branding & Assets</h1>
-            <p>Maintain your site navbar mark, browser favicon, and studio avatar.</p>
+            <p>
+              Maintain your site navbar mark, browser favicon, and studio
+              avatar.
+            </p>
           </div>
           <div class="card">
             <div class="form-group">
               <label>Navbar Brand Logo (PNG, SVG, WEBP)</label>
               <div class="upload-card-box">
-                <img alt="Site Logo" class="preview-thumb" id="siteLogoPreview" onerror="this.src='https://placehold.co/100x100/171d29/94a3b8?text=Logo'" src="https://placehold.co/100x100/171d29/94a3b8?text=Logo" />
+                <img
+                  alt="Site Logo"
+                  class="preview-thumb"
+                  id="siteLogoPreview"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/100x100/171d29/94a3b8?text=Logo'
+                  "
+                  src="https://placehold.co/100x100/171d29/94a3b8?text=Logo"
+                />
                 <div style="flex: 1">
-                  <input accept="image/*" id="siteLogoInput" onchange="previewImage(this, 'siteLogoPreview', 'siteLogoBase64')" type="file" />
+                  <input
+                    accept="image/*"
+                    id="siteLogoInput"
+                    onchange="
+                      previewImage(this, 'siteLogoPreview', 'siteLogoBase64')
+                    "
+                    type="file"
+                  />
                   <input id="siteLogoBase64" type="hidden" />
                 </div>
               </div>
@@ -1337,9 +1537,30 @@
             <div class="form-group">
               <label>Browser Favicon (ICO, PNG)</label>
               <div class="upload-card-box">
-                <img alt="Favicon" class="preview-thumb" id="siteFaviconPreview" onerror="this.src='https://placehold.co/32x32/171d29/94a3b8?text=ico'" src="https://placehold.co/32x32/171d29/94a3b8?text=ico" style="width: 32px; height: 32px" />
+                <img
+                  alt="Favicon"
+                  class="preview-thumb"
+                  id="siteFaviconPreview"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/32x32/171d29/94a3b8?text=ico'
+                  "
+                  src="https://placehold.co/32x32/171d29/94a3b8?text=ico"
+                  style="width: 32px; height: 32px"
+                />
                 <div style="flex: 1">
-                  <input accept="image/*" id="siteFaviconInput" onchange="previewImage(this, 'siteFaviconPreview', 'siteFaviconBase64')" type="file" />
+                  <input
+                    accept="image/*"
+                    id="siteFaviconInput"
+                    onchange="
+                      previewImage(
+                        this,
+                        'siteFaviconPreview',
+                        'siteFaviconBase64',
+                      )
+                    "
+                    type="file"
+                  />
                   <input id="siteFaviconBase64" type="hidden" />
                 </div>
               </div>
@@ -1349,9 +1570,29 @@
             <div class="form-group">
               <label>Studio Admin Avatar</label>
               <div class="upload-card-box">
-                <img alt="Avatar" class="preview-thumb" id="dashAvatarPreview" onerror="this.src='https://placehold.co/100x100/171d29/94a3b8?text=Avatar'" src="https://placehold.co/100x100/171d29/94a3b8?text=Avatar" />
+                <img
+                  alt="Avatar"
+                  class="preview-thumb"
+                  id="dashAvatarPreview"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/100x100/171d29/94a3b8?text=Avatar'
+                  "
+                  src="https://placehold.co/100x100/171d29/94a3b8?text=Avatar"
+                />
                 <div style="flex: 1">
-                  <input accept="image/*" id="dashAvatarInput" onchange="previewImage(this, 'dashAvatarPreview', 'dashAvatarBase64')" type="file" />
+                  <input
+                    accept="image/*"
+                    id="dashAvatarInput"
+                    onchange="
+                      previewImage(
+                        this,
+                        'dashAvatarPreview',
+                        'dashAvatarBase64',
+                      )
+                    "
+                    type="file"
+                  />
                   <input id="dashAvatarBase64" type="hidden" />
                 </div>
               </div>
@@ -1363,35 +1604,67 @@
         <div class="tab-pane" id="tab-hero">
           <div class="header-title">
             <h1>Hero Section</h1>
-            <p>Customize primary intro headings, dynamic typing strings, and top actions.</p>
+            <p>
+              Customize primary intro headings, dynamic typing strings, and top
+              actions.
+            </p>
           </div>
           <div class="card">
             <div class="grid-2">
               <div class="form-group">
                 <label>Badge Pill Text</label>
-                <input class="form-control" id="badgeText" placeholder="Available for new projects" type="text" />
+                <input
+                  class="form-control"
+                  id="badgeText"
+                  placeholder="Available for new projects"
+                  type="text"
+                />
               </div>
               <div class="form-group">
                 <label>Full Display Name</label>
-                <input class="form-control" id="name" placeholder="Md. Tamal Hossain" type="text" />
+                <input
+                  class="form-control"
+                  id="name"
+                  placeholder="Md. Tamal Hossain"
+                  type="text"
+                />
               </div>
             </div>
             <div class="form-group">
               <label>Typing Titles (Comma-separated)</label>
-              <input class="form-control" id="typingTitles" placeholder="Frontend Engineer, UI/UX Designer, WordPress Architect" type="text" />
+              <input
+                class="form-control"
+                id="typingTitles"
+                placeholder="Frontend Engineer, UI/UX Designer, WordPress Architect"
+                type="text"
+              />
             </div>
             <div class="form-group">
               <label>Hero Intro Tagline</label>
-              <textarea class="form-control" id="heroTagline" placeholder="Crafting thoughtful, performant web experiences..."></textarea>
+              <textarea
+                class="form-control"
+                id="heroTagline"
+                placeholder="Crafting thoughtful, performant web experiences..."
+              ></textarea>
             </div>
             <div class="grid-2">
               <div class="form-group">
                 <label>Primary Action URL ("Say Hello")</label>
-                <input class="form-control" id="btnSayHelloLink" placeholder="#contact" type="text" />
+                <input
+                  class="form-control"
+                  id="btnSayHelloLink"
+                  placeholder="#contact"
+                  type="text"
+                />
               </div>
               <div class="form-group">
                 <label>Secondary Action URL ("View Portfolio")</label>
-                <input class="form-control" id="btnPortfolioLink" placeholder="#portfolio" type="text" />
+                <input
+                  class="form-control"
+                  id="btnPortfolioLink"
+                  placeholder="#portfolio"
+                  type="text"
+                />
               </div>
             </div>
           </div>
@@ -1407,7 +1680,16 @@
             <div class="form-group">
               <label>Portfolio Profile Picture</label>
               <div class="upload-card-box">
-                <img alt="Profile" class="preview-thumb" id="imgPreview" onerror="this.src='https://placehold.co/100x100/171d29/94a3b8?text=Profile'" src="https://placehold.co/100x100/171d29/94a3b8?text=Profile" />
+                <img
+                  alt="Profile"
+                  class="preview-thumb"
+                  id="imgPreview"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/100x100/171d29/94a3b8?text=Profile'
+                  "
+                  src="https://placehold.co/100x100/171d29/94a3b8?text=Profile"
+                />
                 <input accept="image/*" id="profileImageInput" type="file" />
               </div>
             </div>
@@ -1416,14 +1698,30 @@
             <div class="form-group">
               <label>Resume PDF Document</label>
               <div class="upload-card-box">
-                <i class="fa-regular fa-file-pdf fa-2x" style="color: var(--accent)"></i>
+                <i
+                  class="fa-regular fa-file-pdf fa-2x"
+                  style="color: var(--accent)"
+                ></i>
                 <div style="flex: 1">
                   <input accept=".pdf" id="resumeFileInput" type="file" />
-                  <p id="currentResumeStatus" style="font-size: 0.78rem; color: var(--text-tertiary); margin-top: 4px;">
+                  <p
+                    id="currentResumeStatus"
+                    style="
+                      font-size: 0.78rem;
+                      color: var(--text-tertiary);
+                      margin-top: 4px;
+                    "
+                  >
                     No resume document uploaded yet
                   </p>
                 </div>
-                <a class="btn-secondary" href="#" id="btnDownloadCurrentResume" style="display: none" target="_blank">
+                <a
+                  class="btn-secondary"
+                  href="#"
+                  id="btnDownloadCurrentResume"
+                  style="display: none"
+                  target="_blank"
+                >
                   <i class="fa-solid fa-arrow-down"></i> Preview Current File
                 </a>
               </div>
@@ -1432,7 +1730,12 @@
           <div class="card">
             <div class="form-group">
               <label>Full Biography</label>
-              <textarea class="form-control" id="aboutBio" placeholder="Write your professional journey and focus areas..." rows="6"></textarea>
+              <textarea
+                class="form-control"
+                id="aboutBio"
+                placeholder="Write your professional journey and focus areas..."
+                rows="6"
+              ></textarea>
             </div>
           </div>
         </div>
@@ -1455,7 +1758,9 @@
         <div class="tab-pane" id="tab-services">
           <div class="header-title">
             <h1>Services Offered</h1>
-            <p>Define offerings with title, description, and vector iconography.</p>
+            <p>
+              Define offerings with title, description, and vector iconography.
+            </p>
           </div>
           <div class="card">
             <div id="servicesContainer"></div>
@@ -1497,28 +1802,49 @@
         <div class="tab-pane active" id="tab-projects">
           <div class="header-title">
             <h1>Portfolio Projects</h1>
-            <p>Curate project items, filter classifications, and interaction types.</p>
+            <p>
+              Curate project items, filter classifications, and interaction
+              types.
+            </p>
           </div>
           <div class="card">
             <div class="card-header-line">
-              <h3 class="card-title"><i class="fa-solid fa-tags"></i> Filter Categories</h3>
+              <h3 class="card-title">
+                <i class="fa-solid fa-tags"></i> Filter Categories
+              </h3>
             </div>
             <div class="cat-badges-wrap" id="categoriesBadgeWrap"></div>
             <div style="display: flex; gap: 8px; max-width: 360px">
-              <input class="form-control" id="newCatInput" placeholder="e.g. mobile-app" type="text" />
-              <button class="btn-secondary" onclick="handleAddCategory()" type="button">
+              <input
+                class="form-control"
+                id="newCatInput"
+                placeholder="e.g. mobile-app"
+                type="text"
+              />
+              <button
+                class="btn-secondary"
+                onclick="handleAddCategory()"
+                type="button"
+              >
                 Add
               </button>
             </div>
           </div>
           <div class="card">
             <div class="card-header-line">
-              <h3 class="card-title"><i class="fa-solid fa-plus"></i> New Project Entry</h3>
+              <h3 class="card-title">
+                <i class="fa-solid fa-plus"></i> New Project Entry
+              </h3>
             </div>
             <div class="grid-2">
               <div class="form-group">
                 <label>Project Title</label>
-                <input class="form-control" id="newProjTitle" placeholder="Acme SaaS Platform" type="text" />
+                <input
+                  class="form-control"
+                  id="newProjTitle"
+                  placeholder="Acme SaaS Platform"
+                  type="text"
+                />
               </div>
               <div class="form-group">
                 <label>Category</label>
@@ -1528,45 +1854,92 @@
             <div class="grid-2">
               <div class="form-group">
                 <label>Click Action Mode</label>
-                <select class="form-control" id="newProjActionType" onchange="toggleActionTypeFields()">
-                  <option value="url">Direct Link (External URL in new tab)</option>
-                  <option value="lightbox">Lightbox (Modal Image Preview)</option>
+                <select
+                  class="form-control"
+                  id="newProjActionType"
+                  onchange="toggleActionTypeFields()"
+                >
+                  <option value="url">
+                    Direct Link (External URL in new tab)
+                  </option>
+                  <option value="lightbox">
+                    Lightbox (Modal Image Preview)
+                  </option>
                 </select>
               </div>
               <div class="form-group">
                 <label>Screenshot Presentation</label>
                 <select class="form-control" id="newProjScrollMode">
-                  <option value="scroll">Scrolling Preview (Vertical hover pan)</option>
+                  <option value="scroll">
+                    Scrolling Preview (Vertical hover pan)
+                  </option>
                   <option value="fit">Contained (Standard aspect ratio)</option>
                 </select>
               </div>
             </div>
             <div class="form-group" id="liveUrlGroup">
               <label>Live URL</label>
-              <input class="form-control" id="newProjLiveUrl" placeholder="https://example.com" type="text" />
+              <input
+                class="form-control"
+                id="newProjLiveUrl"
+                placeholder="https://example.com"
+                type="text"
+              />
             </div>
             <div class="form-group">
               <label>Screenshot Image</label>
               <div class="upload-card-box">
-                <img alt="Preview" class="preview-thumb" id="newProjImgPreview" onerror="this.src='https://placehold.co/100x100/171d29/94a3b8?text=Project'" src="https://placehold.co/100x100/171d29/94a3b8?text=Project" />
+                <img
+                  alt="Preview"
+                  class="preview-thumb"
+                  id="newProjImgPreview"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/100x100/171d29/94a3b8?text=Project'
+                  "
+                  src="https://placehold.co/100x100/171d29/94a3b8?text=Project"
+                />
                 <div style="flex: 1">
-                  <input accept="image/*" id="newProjImgInput" onchange="previewImage(this, 'newProjImgPreview', 'newProjImgBase64')" type="file" />
+                  <input
+                    accept="image/*"
+                    id="newProjImgInput"
+                    onchange="
+                      previewImage(
+                        this,
+                        'newProjImgPreview',
+                        'newProjImgBase64',
+                      )
+                    "
+                    type="file"
+                  />
                   <input id="newProjImgBase64" type="hidden" />
                 </div>
               </div>
             </div>
             <div class="form-group">
               <label>Short Description</label>
-              <textarea class="form-control" id="newProjDesc" placeholder="Summary of architecture and outcomes..."></textarea>
+              <textarea
+                class="form-control"
+                id="newProjDesc"
+                placeholder="Summary of architecture and outcomes..."
+              ></textarea>
             </div>
-            <button class="btn-secondary" onclick="handleCreateProject()" type="button">
-              <i class="fa-solid fa-arrow-up-from-bracket"></i> Upload & Register Project
+            <button
+              class="btn-secondary"
+              onclick="handleCreateProject()"
+              type="button"
+            >
+              <i class="fa-solid fa-arrow-up-from-bracket"></i> Upload &
+              Register Project
             </button>
           </div>
           <div class="card">
             <div class="card-header-line">
               <h3 class="card-title">
-                <i class="fa-solid fa-list-check"></i> Published Projects (<span id="projCount">0</span>)
+                <i class="fa-solid fa-list-check"></i> Published Projects (<span
+                  id="projCount"
+                  >0</span
+                >)
               </h3>
             </div>
             <div class="project-grid" id="projectCardsGrid"></div>
@@ -1577,11 +1950,15 @@
         <div class="tab-pane" id="tab-resume">
           <div class="header-title">
             <h1>Resume Timeline</h1>
-            <p>Track academic achievements and professional roles in sequence.</p>
+            <p>
+              Track academic achievements and professional roles in sequence.
+            </p>
           </div>
           <div class="card">
             <div class="card-header-line">
-              <h3 class="card-title"><i class="fa-solid fa-graduation-cap"></i> Academic Background</h3>
+              <h3 class="card-title">
+                <i class="fa-solid fa-graduation-cap"></i> Academic Background
+              </h3>
             </div>
             <div id="educationContainer"></div>
             <button class="btn-add" onclick="addEduRow()" type="button">
@@ -1590,7 +1967,9 @@
           </div>
           <div class="card">
             <div class="card-header-line">
-              <h3 class="card-title"><i class="fa-solid fa-briefcase"></i> Work Experience</h3>
+              <h3 class="card-title">
+                <i class="fa-solid fa-briefcase"></i> Work Experience
+              </h3>
             </div>
             <div id="experienceContainer"></div>
             <button class="btn-add" onclick="addExpRow()" type="button">
@@ -1607,26 +1986,46 @@
           </div>
           <div class="card">
             <div class="card-header-line">
-              <h3 class="card-title"><i class="fa-regular fa-address-card"></i> Contact Information</h3>
+              <h3 class="card-title">
+                <i class="fa-regular fa-address-card"></i> Contact Information
+              </h3>
             </div>
             <div class="grid-3">
               <div class="form-group">
                 <label>Email Address</label>
-                <input class="form-control" id="email" placeholder="tamal@example.com" type="email" />
+                <input
+                  class="form-control"
+                  id="email"
+                  placeholder="tamal@example.com"
+                  type="email"
+                />
               </div>
               <div class="form-group">
                 <label>Phone Number</label>
-                <input class="form-control" id="phone" placeholder="+880 1..." type="text" />
+                <input
+                  class="form-control"
+                  id="phone"
+                  placeholder="+880 1..."
+                  type="text"
+                />
               </div>
               <div class="form-group">
                 <label>Location / Timezone</label>
-                <input class="form-control" id="address" placeholder="Dhaka, Bangladesh" type="text" />
+                <input
+                  class="form-control"
+                  id="address"
+                  placeholder="Dhaka, Bangladesh"
+                  type="text"
+                />
               </div>
             </div>
           </div>
           <div class="card">
             <div class="card-header-line">
-              <h3 class="card-title"><i class="fa-solid fa-share-nodes"></i> Social & Community Profiles</h3>
+              <h3 class="card-title">
+                <i class="fa-solid fa-share-nodes"></i> Social & Community
+                Profiles
+              </h3>
             </div>
             <div id="socialsContainer"></div>
             <button class="btn-add" onclick="addSocialRow()" type="button">
@@ -1638,10 +2037,18 @@
         <!-- PERSISTENT ACTION BAR -->
         <div class="action-bar">
           <span class="status-msg" id="statusMsg">
-            <i class="fa-regular fa-circle-check" style="color: var(--emerald)"></i>
+            <i
+              class="fa-regular fa-circle-check"
+              style="color: var(--emerald)"
+            ></i>
             Ready to publish changes
           </span>
-          <button class="btn-save" id="saveBtn" onclick="handleSaveAllProfileData()" type="button">
+          <button
+            class="btn-save"
+            id="saveBtn"
+            onclick="handleSaveAllProfileData()"
+            type="button"
+          >
             <span class="svg-wrapper">
               <i class="fa-solid fa-floppy-disk"></i>
             </span>
@@ -1844,15 +2251,52 @@
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
 
+      // ক্লায়েন্ট-সাইডেই যেকোনো বড় ইমেজ/স্ক্রিনশটকে অটো-কম্প্রেস করার ফাংশন
       function fileToBase64(file) {
         return new Promise((resolve, reject) => {
+          // যদি ইমেজ ফাইল না হয় (যেমন PDF), সরাসরি বেস৬৪ করবে
+          if (!file.type.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+            return;
+          }
+
+          // ইমেজের জন্য Canvas কম্প্রেশন
           const reader = new FileReader();
           reader.readAsDataURL(file);
-          reader.onload = () => resolve(reader.result);
+          reader.onload = (event) => {
+            const img = new Image();
+            img.src = event.target.result;
+            img.onload = () => {
+              const canvas = document.createElement("canvas");
+              let width = img.width;
+              let height = img.height;
+
+              // ম্যাক্সিমাম উইডথ ১২০০px রাখা হবে (স্ক্রিনশটের জন্য পারফেক্ট)
+              const MAX_WIDTH = 1200;
+              if (width > MAX_WIDTH) {
+                height = Math.round((height * MAX_WIDTH) / width);
+                width = MAX_WIDTH;
+              }
+
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext("2d");
+              ctx.drawImage(img, 0, 0, width, height);
+
+              // ৭-৮ MB ফাইলকে মাত্র ৮০-১৫০ KB WebP-তে নামিয়ে আনবে
+              const compressedBase64 = canvas.toDataURL("image/webp", 0.75);
+              resolve(compressedBase64);
+            };
+            img.onerror = () => resolve(event.target.result);
+          };
           reader.onerror = (error) => reject(error);
         });
       }
 
+      // previewImage ফাংশন (আগের মতোই থাকবে)
       async function previewImage(input, previewId, hiddenInputId) {
         if (input.files && input.files[0]) {
           const b64 = await fileToBase64(input.files[0]);
@@ -2070,42 +2514,58 @@
             renderCategoriesUI();
 
             if (profileData.siteLogo) {
-              document.getElementById("siteLogoPreview").src = profileData.siteLogo;
-              document.getElementById("siteLogoBase64").value = profileData.siteLogo;
+              document.getElementById("siteLogoPreview").src =
+                profileData.siteLogo;
+              document.getElementById("siteLogoBase64").value =
+                profileData.siteLogo;
             }
             if (profileData.siteFavicon) {
-              document.getElementById("siteFaviconPreview").src = profileData.siteFavicon;
-              document.getElementById("siteFaviconBase64").value = profileData.siteFavicon;
+              document.getElementById("siteFaviconPreview").src =
+                profileData.siteFavicon;
+              document.getElementById("siteFaviconBase64").value =
+                profileData.siteFavicon;
             }
             if (profileData.dashboardAvatar) {
-              document.getElementById("dashAvatarPreview").src = profileData.dashboardAvatar;
-              document.getElementById("dashAvatarImg").src = profileData.dashboardAvatar;
-              document.getElementById("dashAvatarBase64").value = profileData.dashboardAvatar;
+              document.getElementById("dashAvatarPreview").src =
+                profileData.dashboardAvatar;
+              document.getElementById("dashAvatarImg").src =
+                profileData.dashboardAvatar;
+              document.getElementById("dashAvatarBase64").value =
+                profileData.dashboardAvatar;
             }
 
             if (profileData.badgeText)
-              document.getElementById("badgeText").value = profileData.badgeText;
+              document.getElementById("badgeText").value =
+                profileData.badgeText;
             if (profileData.name) {
               document.getElementById("name").value = profileData.name;
-              document.getElementById("dashBrandName").innerText = profileData.name;
+              document.getElementById("dashBrandName").innerText =
+                profileData.name;
             }
             if (profileData.typingTitles)
-              document.getElementById("typingTitles").value = profileData.typingTitles;
+              document.getElementById("typingTitles").value =
+                profileData.typingTitles;
             if (profileData.heroTagline)
-              document.getElementById("heroTagline").value = profileData.heroTagline;
+              document.getElementById("heroTagline").value =
+                profileData.heroTagline;
             if (profileData.btnSayHelloLink)
-              document.getElementById("btnSayHelloLink").value = profileData.btnSayHelloLink;
+              document.getElementById("btnSayHelloLink").value =
+                profileData.btnSayHelloLink;
             if (profileData.btnPortfolioLink)
-              document.getElementById("btnPortfolioLink").value = profileData.btnPortfolioLink;
+              document.getElementById("btnPortfolioLink").value =
+                profileData.btnPortfolioLink;
             if (profileData.aboutBio)
               document.getElementById("aboutBio").value = profileData.aboutBio;
 
             if (profileData.profileImage)
-              document.getElementById("imgPreview").src = profileData.profileImage;
+              document.getElementById("imgPreview").src =
+                profileData.profileImage;
 
             if (profileData.resumeFile && profileData.resumeFile !== "#") {
-              document.getElementById("currentResumeStatus").innerText = "✓ Active resume file attached";
-              document.getElementById("currentResumeStatus").style.color = "var(--emerald)";
+              document.getElementById("currentResumeStatus").innerText =
+                "✓ Active resume file attached";
+              document.getElementById("currentResumeStatus").style.color =
+                "var(--emerald)";
               const dlBtn = document.getElementById("btnDownloadCurrentResume");
               dlBtn.href = profileData.resumeFile;
               dlBtn.style.display = "inline-flex";
@@ -2172,22 +2632,31 @@
           }
 
           // Update Stats
-          document.getElementById("statTotalProjects").innerText = projectsData.length;
-          document.getElementById("statTotalTech").innerText = (profileData.technologies || []).length;
-          document.getElementById("statTotalSkills").innerText = (profileData.skills || []).length;
-          document.getElementById("statTotalFacts").innerText = (profileData.funfacts || []).length;
+          document.getElementById("statTotalProjects").innerText =
+            projectsData.length;
+          document.getElementById("statTotalTech").innerText = (
+            profileData.technologies || []
+          ).length;
+          document.getElementById("statTotalSkills").innerText = (
+            profileData.skills || []
+          ).length;
+          document.getElementById("statTotalFacts").innerText = (
+            profileData.funfacts || []
+          ).length;
 
           const catMap = {};
           projectsData.forEach((p) => {
-            catMap[p.category || "other"] = (catMap[p.category || "other"] || 0) + 1;
+            catMap[p.category || "other"] =
+              (catMap[p.category || "other"] || 0) + 1;
           });
-          document.getElementById("statCatBreakdown").innerHTML = Object.entries(catMap)
-            .map(
-              ([cat, count]) => `
+          document.getElementById("statCatBreakdown").innerHTML =
+            Object.entries(catMap)
+              .map(
+                ([cat, count]) => `
                 <div class="cat-pill"><span>${cat}</span> <strong>${count}</strong></div>
               `,
-            )
-            .join("");
+              )
+              .join("");
         } catch (err) {
           console.error("Master data load error:", err);
         }
@@ -2306,16 +2775,43 @@
         status.style.color = "var(--accent)";
 
         const formData = new FormData();
-        formData.append("projectCategories", JSON.stringify(availableCategories));
-        formData.append("siteLogo", document.getElementById("siteLogoBase64").value);
-        formData.append("siteFavicon", document.getElementById("siteFaviconBase64").value);
-        formData.append("dashboardAvatar", document.getElementById("dashAvatarBase64").value);
-        formData.append("badgeText", document.getElementById("badgeText").value);
+        formData.append(
+          "projectCategories",
+          JSON.stringify(availableCategories),
+        );
+        formData.append(
+          "siteLogo",
+          document.getElementById("siteLogoBase64").value,
+        );
+        formData.append(
+          "siteFavicon",
+          document.getElementById("siteFaviconBase64").value,
+        );
+        formData.append(
+          "dashboardAvatar",
+          document.getElementById("dashAvatarBase64").value,
+        );
+        formData.append(
+          "badgeText",
+          document.getElementById("badgeText").value,
+        );
         formData.append("name", document.getElementById("name").value);
-        formData.append("typingTitles", document.getElementById("typingTitles").value);
-        formData.append("heroTagline", document.getElementById("heroTagline").value);
-        formData.append("btnSayHelloLink", document.getElementById("btnSayHelloLink").value);
-        formData.append("btnPortfolioLink", document.getElementById("btnPortfolioLink").value);
+        formData.append(
+          "typingTitles",
+          document.getElementById("typingTitles").value,
+        );
+        formData.append(
+          "heroTagline",
+          document.getElementById("heroTagline").value,
+        );
+        formData.append(
+          "btnSayHelloLink",
+          document.getElementById("btnSayHelloLink").value,
+        );
+        formData.append(
+          "btnPortfolioLink",
+          document.getElementById("btnPortfolioLink").value,
+        );
         formData.append("aboutBio", document.getElementById("aboutBio").value);
         formData.append("email", document.getElementById("email").value);
         formData.append("phone", document.getElementById("phone").value);
